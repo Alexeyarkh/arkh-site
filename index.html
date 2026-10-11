@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>arkh — видеопродакшн: реклама, рилсы, видеографика</title>
+  <meta name="description" content="Снимаем рекламные ролики, рилсы и видеографику для брендов. Сценарий, съёмка, монтаж и цвет под ключ. Пишите в Telegram.">
+  <meta property="og:title" content="arkh — видеопродакшн">
+  <meta property="og:description" content="Рекламные ролики, рилсы и видеографика, которые досматривают.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b0b0c">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__label">Смотреть</span></div>
+
+<!-- ================= HEADER ================= -->
+<header class="header" id="top">
+  <a href="#top" class="logo" aria-label="На главную">
+    <img src="assets/img/logo-black.png" alt="arkh" class="logo__img">
+  </a>
+  <nav class="nav" aria-label="Основное меню">
+    <a href="#top" class="nav__link is-active">Главная</a>
+    <a href="#about" class="nav__link">О нас</a>
+    <a href="#services" class="nav__link">Услуги</a>
+    <a href="#works" class="nav__link">Работы</a>
+    <a href="#backstage" class="nav__link">Бэкстейдж</a>
+  </nav>
+  <a href="#" class="btn btn--outline js-tg magnetic">Написать в Telegram</a>
+  <button class="burger" aria-label="Меню" aria-expanded="false"><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" aria-hidden="true">
+  <a href="#top">Главная</a>
+  <a href="#about">О нас</a>
+  <a href="#services">Услуги</a>
+  <a href="#works">Работы</a>
+  <a href="#backstage">Бэкстейдж</a>
+  <a href="#" class="js-tg mobile-menu__tg">Написать в Telegram →</a>
+</div>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero__frame">
+    <div class="hero__media" data-parallax="0.15">
+      <div class="fire-scene">
+        <span class="fs fs--1"></span><span class="fs fs--2"></span><span class="fs fs--3"></span>
+        <span class="fs fs--4"></span><span class="fs fs--5"></span>
+        <svg class="fire-scene__silhouette" viewBox="0 0 600 720" aria-hidden="true">
+          <defs>
+            <filter id="mblur" filterUnits="userSpaceOnUse" x="-400" y="-100" width="1400" height="920">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="46 3" result="a"/>
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
+              <feComponentTransfer in="b" result="c"><feFuncA type="linear" slope=".85"/></feComponentTransfer>
+              <feMerge><feMergeNode in="a"/><feMergeNode in="c"/></feMerge>
+            </filter>
+            <linearGradient id="fade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="720">
+              <stop offset="0" stop-color="#fff"/><stop offset=".62" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="fadeMask" maskUnits="userSpaceOnUse" x="-400" y="-100" width="1400" height="920"><rect x="-400" y="-100" width="1400" height="820" fill="url(#fade)"/></mask>
+          </defs>
+          <g mask="url(#fadeMask)"><g filter="url(#mblur)" fill="#0d0d0d" stroke="#0d0d0d" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="302" cy="92" rx="44" ry="54" stroke="none"/>
+            <path d="M232 150 Q300 120 372 150 L410 200 Q420 330 380 470 L370 720 L230 720 L222 470 Q182 330 196 200 Z" stroke="none"/>
+            <path d="M210 205 Q120 230 40 330" fill="none" stroke-width="58"/>
+            <path d="M395 200 Q480 205 565 250" fill="none" stroke-width="52"/>
+          </g></g>
+        </svg>
+      </div>
+      <video class="hero__video" muted playsinline loop autoplay preload="metadata" hidden></video>
+      <img class="hero__img" alt="" hidden>
+    </div>
+
+    <div class="hero__content">
+      <h1 class="hero__title">
+        <span class="line"><span>Снимаем рекламу,</span></span>
+        <span class="line line--muted"><span>которую досматривают</span></span>
+      </h1>
+      <p class="hero__lead reveal">Видеопродакшн полного цикла: рекламные ролики, рилсы и видеографика для брендов, которым нужно выделиться в ленте и продавать.</p>
+      <button class="pill magnetic js-showreel" type="button">
+        <span class="capsule"><span class="capsule__fire"></span></span>
+        <span class="pill__text">Смотреть шоурил</span>
+      </button>
+    </div>
+
+    <a href="#works" class="case-card reveal" data-cursor>
+      <div class="case-card__back"></div>
+      <div class="case-card__front">
+        <div class="case-card__bg fire-bg fire-bg--car"></div>
+        <span class="tag tag--light">кейс 01</span>
+        <div class="case-card__body">
+          <span class="star"></span>
+          <strong>Рекламный ролик</strong>
+          <small>Дерзко, динамично, в цель</small>
+        </div>
+      </div>
+    </a>
+
+    <div class="wordmark wordmark--hero" aria-hidden="true"><span class="js-brand-split">arkh</span></div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about section" id="about">
+  <div class="container">
+    <div class="about__head">
+      <span class="eyebrow">О студии</span>
+      <p class="manifest js-words">
+        <span class="star star--lg"></span><span class="indent"></span>
+        <b class="js-brand">arkh</b> — видеопродакшн смелых
+        <span class="capsule capsule--inline"><span class="capsule__fire"></span></span>
+        авторов, которые превращают задачи бизнеса в ролики, от которых
+        <span class="capsule capsule--inline capsule--sm"><span class="capsule__fire capsule__fire--alt"></span></span>
+        невозможно оторваться
+      </p>
+      <p class="about__note reveal">Мы думаем как маркетологи и снимаем как киношники. Каждый кадр работает на одну цель — чтобы ваш бренд заметили, запомнили и выбрали.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card card--dark reveal">
+        <span class="tag">Стратегия</span>
+        <div class="card__body">
+          <span class="star"></span>
+          <h3>Идея, которая цепляет с первой секунды</h3>
+          <p>Разбираем аудиторию и продукт, пишем сценарий под конкретную цель — продажи, охват или узнаваемость.</p>
+        </div>
+      </article>
+      <article class="card card--fire card--low reveal">
+        <div class="card__bg fire-bg"></div>
+        <span class="tag tag--light">Продакшн</span>
+        <div class="card__body">
+          <span class="star"></span>
+          <h3>Кино-качество для любой площадки</h3>
+          <p>Кинокамеры, свет, актёры, локации. От ТВ-спота до вертикального рилса.</p>
+        </div>
+      </article>
+      <article class="card card--photo reveal" data-cursor>
+        <div class="card__bg fire-bg fire-bg--mono"></div>
+        <span class="tag tag--light">Скорость</span>
+        <div class="card__body">
+          <span class="star"></span>
+          <h3>Быстро — без потери качества</h3>
+          <p>Первый драфт монтажа — от 3 дней после съёмки. Понятные сроки и этапы.</p>
+        </div>
+      </article>
+      <article class="card card--light card--low reveal">
+        <span class="tag tag--dark">Команда</span>
+        <div class="card__body">
+          <span class="star"></span>
+          <h3>Одна команда от брифа до релиза</h3>
+          <p>Продюсер, режиссёр, оператор, монтажёр и моушн-дизайнер — без посредников.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats">
+  <div class="container stats__grid">
+    <div class="stat reveal"><span class="stat__num" data-count="150">0</span><span class="stat__plus">+</span><p>проектов снято</p></div>
+    <div class="stat reveal"><span class="stat__num" data-count="40">0</span><span class="stat__plus">млн+</span><p>просмотров у наших роликов</p></div>
+    <div class="stat reveal"><span class="stat__num" data-count="60">0</span><span class="stat__plus">+</span><p>брендов доверились нам</p></div>
+    <div class="stat reveal"><span class="stat__num" data-count="3">0</span><span class="stat__plus">дня</span><p>до первого драфта монтажа</p></div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="services section" id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Что мы делаем</span>
+      <h2 class="h2 reveal">Услуги</h2>
+    </div>
+    <ul class="svc">
+      <li class="svc__item" data-cursor>
+        <span class="svc__num">01</span>
+        <h3 class="svc__title">Рекламные ролики</h3>
+        <p class="svc__desc">ТВ, digital, наружка, pre-roll. Сценарий, кастинг, съёмка и пост-продакшн под ключ.</p>
+        <span class="svc__arrow">↗</span>
+        <span class="svc__preview fire-bg"></span>
+      </li>
+      <li class="svc__item" data-cursor>
+        <span class="svc__num">02</span>
+        <h3 class="svc__title">Reels, Shorts, TikTok</h3>
+        <p class="svc__desc">Вертикальный контент с хуком в первые секунды, трендовым монтажом и под алгоритмы платформ.</p>
+        <span class="svc__arrow">↗</span>
+        <span class="svc__preview fire-bg fire-bg--mono"></span>
+      </li>
+      <li class="svc__item" data-cursor>
+        <span class="svc__num">03</span>
+        <h3 class="svc__title">Видеографика и motion</h3>
+        <p class="svc__desc">Анимация логотипов, инфографика, 2D/3D-графика, титры и упаковка видео.</p>
+        <span class="svc__arrow">↗</span>
+        <span class="svc__preview fire-bg fire-bg--car"></span>
+      </li>
+      <li class="svc__item" data-cursor>
+        <span class="svc__num">04</span>
+        <h3 class="svc__title">Имиджевые фильмы</h3>
+        <p class="svc__desc">Истории о бренде, команде и производстве — для сайта, презентаций и выставок.</p>
+        <span class="svc__arrow">↗</span>
+        <span class="svc__preview fire-bg"></span>
+      </li>
+      <li class="svc__item" data-cursor>
+        <span class="svc__num">05</span>
+        <h3 class="svc__title">Видео для маркетплейсов</h3>
+        <p class="svc__desc">Видеообложки и ролики для карточек товаров, которые поднимают CTR и конверсию.</p>
+        <span class="svc__arrow">↗</span>
+        <span class="svc__preview fire-bg fire-bg--mono"></span>
+      </li>
+      <li class="svc__item" data-cursor>
+        <span class="svc__num">06</span>
+        <h3 class="svc__title">Монтаж и цвет</h3>
+        <p class="svc__desc">Монтаж, цветокоррекция, саунд-дизайн и адаптация ролика под все форматы.</p>
+        <span class="svc__arrow">↗</span>
+        <span class="svc__preview fire-bg fire-bg--car"></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= WHY US (dark) ================= -->
+<section class="why" id="why">
+  <div class="why__banner">
+    <div class="why__streaks">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="container why__banner-inner">
+      <img src="assets/img/logo-white.png" alt="" class="why__logo">
+      <h2 class="why__banner-title reveal">Бренды, которые<br>запоминают</h2>
+      <p class="why__banner-sub reveal">Не просто красивая картинка — мы снимаем видео, которое двигает ваш бизнес вперёд.</p>
+    </div>
+  </div>
+
+  <div class="container why__body">
+    <div class="about__head">
+      <span class="eyebrow">Почему мы</span>
+      <p class="manifest manifest--dark js-words">
+        <span class="star star--lg"></span><span class="indent"></span>
+        Мы не продаём «съёмку» — мы
+        <span class="capsule capsule--inline"><span class="capsule__fire"></span></span>
+        решаем задачу бренда, превращая идею в видео, которое смотрят, пересылают и после которого покупают
+      </p>
+    </div>
+
+    <ol class="usp">
+      <li class="usp__item reveal"><span class="usp__n">01</span><h3>Сценарий под цель</h3><p>Каждый ролик начинается с вопроса «что должен сделать зритель?». Креатив подчинён результату.</p></li>
+      <li class="usp__item reveal"><span class="usp__n">02</span><h3>Полный цикл под ключ</h3><p>Идея, сценарий, кастинг, локации, съёмка, монтаж, цвет, звук и графика — всё внутри команды.</p></li>
+      <li class="usp__item reveal"><span class="usp__n">03</span><h3>Кино-оборудование</h3><p>Кинокамеры, оптика, свет и стабилизация уровня большого продакшна — даже для рилсов.</p></li>
+      <li class="usp__item reveal"><span class="usp__n">04</span><h3>Рилсы под алгоритмы</h3><p>Знаем, как удержать внимание в первые 2 секунды и как ролик поведёт себя в ленте.</p></li>
+      <li class="usp__item reveal"><span class="usp__n">05</span><h3>Фиксированная смета</h3><p>Прозрачная стоимость и сроки до старта. Никаких сюрпризов в конце проекта.</p></li>
+      <li class="usp__item reveal"><span class="usp__n">06</span><h3>Один контакт</h3><p>Личный продюсер на связи в Telegram на каждом этапе — от брифа до финальной версии.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= WORKS ================= -->
+<section class="works section" id="works">
+  <div class="container">
+    <div class="section-head section-head--row">
+      <div>
+        <span class="eyebrow">Портфолио</span>
+        <h2 class="h2 reveal">Наши работы</h2>
+      </div>
+      <div class="filters" role="tablist">
+        <button class="chip is-active" data-filter="all">Все</button>
+        <button class="chip" data-filter="ads">Реклама</button>
+        <button class="chip" data-filter="reels">Рилсы</button>
+        <button class="chip" data-filter="motion">Motion</button>
+        <button class="chip" data-filter="brand">Имиджевые</button>
+      </div>
+    </div>
+    <div class="works__grid" id="worksGrid"></div>
+  </div>
+</section>
+
+<!-- ================= BACKSTAGE ================= -->
+<section class="backstage" id="backstage">
+  <div class="container">
+    <div class="about__head">
+      <span class="eyebrow">Бэкстейдж</span>
+      <p class="manifest manifest--dark js-words">
+        <span class="star star--lg"></span><span class="indent"></span>
+        За каждым роликом — команда, свет, камеры и
+        <span class="capsule capsule--inline"><span class="capsule__fire"></span></span>
+        десятки часов, чтобы в кадре было ровно то, что продаёт
+      </p>
+    </div>
+  </div>
+  <div class="strip" id="backstageStrip"></div>
+
+  <div class="container">
+    <ol class="process">
+      <li class="process__step reveal"><span>01</span><h3>Бриф</h3><p>Созваниваемся или переписываемся в Telegram, разбираем задачу, аудиторию и бюджет.</p></li>
+      <li class="process__step reveal"><span>02</span><h3>Сценарий</h3><p>Предлагаем идею, пишем сценарий и раскадровку, согласовываем смету и сроки.</p></li>
+      <li class="process__step reveal"><span>03</span><h3>Съёмка</h3><p>Кастинг, локации, оборудование, площадка — снимаем за 1–3 дня.</p></li>
+      <li class="process__step reveal"><span>04</span><h3>Монтаж и сдача</h3><p>Монтаж, цвет, звук, графика и версии под все площадки. Две итерации правок включены.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="contact__frame">
+    <div class="contact__media">
+      <div class="fire-scene fire-scene--contact">
+        <span class="fs fs--1"></span><span class="fs fs--2"></span><span class="fs fs--3"></span>
+        <span class="fs fs--4"></span><span class="fs fs--5"></span>
+      </div>
+      <video class="contact__video" muted playsinline loop preload="none" hidden></video>
+      <div class="contact__shade"></div>
+    </div>
+
+    <div class="contact__top">
+      <div class="contact__intro">
+        <img src="assets/img/logo-black.png" alt="arkh" class="contact__logo">
+        <h3 class="reveal">Нужен ролик,<br>который продаёт?</h3>
+        <p class="reveal">Мы не обещаем результат — мы его снимаем. Присоединяйтесь к брендам, которые уже растут вместе с нами.</p>
+      </div>
+      <div class="contact__card reveal">
+        <h2><span class="accent">Давайте снимем</span><br>что-то дерзкое</h2>
+        <p>Расскажите о задаче в Telegram — ответим в течение часа, предложим идею и посчитаем смету.</p>
+        <a href="#" class="tg-btn js-tg magnetic">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13 1.5 11.5c-1-.3-1.1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5z"/></svg>
+          Написать в Telegram
+        </a>
+      </div>
+    </div>
+
+    <div class="wordmark wordmark--contact" aria-hidden="true"><span class="js-brand-split">arkh</span></div>
+
+    <footer class="footer">
+      <div class="footer__lead">
+        <h3>Будем рады<br>снять для вас.</h3>
+        <a href="#" class="btn btn--outline js-tg magnetic">Обсудить проект</a>
+        <small class="footer__copy">© <span class="js-year">2026</span> <span class="js-brand">arkh</span> production</small>
+      </div>
+      <div class="footer__col">
+        <h4>Локация</h4>
+        <p class="js-city">Москва — снимаем по всему миру</p>
+      </div>
+      <div class="footer__col">
+        <h4>Соцсети</h4>
+        <div class="footer__links js-socials"></div>
+      </div>
+      <div class="footer__col">
+        <h4>Навигация</h4>
+        <div class="footer__links">
+          <a href="#about">О нас</a><a href="#services">Услуги</a><a href="#works">Работы</a><a href="#backstage">Бэкстейдж</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= VIDEO MODAL ================= -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__box">
+    <button class="modal__close" data-close aria-label="Закрыть">✕</button>
+    <div class="modal__player"></div>
+    <div class="modal__info">
+      <span class="tag tag--light modal__cat"></span>
+      <h3 class="modal__title"></h3>
+      <p class="modal__task"></p>
+      <p class="modal__result"></p>
+      <a href="#" class="tg-btn tg-btn--sm js-tg">Хочу так же →</a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
