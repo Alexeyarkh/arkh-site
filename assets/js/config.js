@@ -4,7 +4,7 @@
    ========================================================== */
 window.SITE = {
   BRAND_NAME: "arkh",                       // гигантский wordmark, title, футер
-  TELEGRAM_URL: "https://t.me/username",    // все кнопки «Написать» ведут сюда
+  TELEGRAM_URL: "https://t.me/alexey_arkh",    // все кнопки «Написать» ведут сюда
   CITY: "Москва — снимаем по всему миру",
   YEAR: 2026,
 
@@ -14,7 +14,7 @@ window.SITE = {
   SHOWREEL_VIDEO: "",      // напр. "assets/video/showreel.mp4" — фон финального экрана и плеер «Смотреть шоурил»
 
   SOCIALS: [
-    { name: "Telegram", url: "https://t.me/username" },
+    { name: "Telegram", url: "https://t.me/alexey_arkh" },
     { name: "Instagram", url: "#" },
     { name: "YouTube", url: "#" },
     { name: "VK", url: "#" },
