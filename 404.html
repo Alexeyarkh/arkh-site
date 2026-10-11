@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Стоп, снято не то — arkh</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a; --black-2: #151515; --paper: #ecebe6; --white: #fff;
+      --fire: #ff4a1c; --fire-3: #ffc04d; --red: #c4160a; --muted: rgba(255,255,255,.62);
+      --f-display: "Unbounded", "Arial Black", sans-serif; --f-body: "Inter Tight", Arial, sans-serif; --f-mono: "JetBrains Mono", Menlo, monospace;
+      --ease-out: cubic-bezier(.16, 1, .3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: 24px 16px;
+      background: radial-gradient(70% 60% at 50% 35%, #2a2a28, var(--black) 70%); color: var(--white);
+      font-family: var(--f-body); overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--fire); outline-offset: 4px; border-radius: 8px; }
+    .grain {
+      position: fixed; inset: -100%; pointer-events: none; opacity: .08; z-index: 5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: grain 1s steps(6) infinite;
+    }
+    @keyframes grain { 0%{transform:translate(0,0)} 25%{transform:translate(-6%,4%)} 50%{transform:translate(5%,-7%)} 75%{transform:translate(-3%,8%)} 100%{transform:translate(0,0)} }
+
+    /* Viewfinder frame */
+    .vf { position: fixed; inset: 18px; pointer-events: none; z-index: 1; }
+    .vf i { position: absolute; width: 30px; height: 30px; border: 0 solid rgba(255,255,255,.6); }
+    .vf i:nth-child(1) { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+    .vf i:nth-child(2) { top: 0; right: 0; border-top-width: 2px; border-right-width: 2px; }
+    .vf i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 2px; border-left-width: 2px; }
+    .vf i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+    .meta { position: fixed; z-index: 2; font-family: var(--f-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75); display: flex; gap: 16px; align-items: center; }
+    .meta--tl { top: 32px; left: 60px; } .meta--tr { top: 32px; right: 60px; }
+    .rec i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--fire); box-shadow: 0 0 10px var(--fire); margin-right: 8px; animation: blink 1.2s steps(2, jump-none) infinite; }
+    @keyframes blink { 50% { opacity: .15; } }
+
+    main { position: relative; z-index: 3; width: min(1080px, 100%); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+
+    /* Clapperboard */
+    .clap { position: relative; width: 100%; max-width: 460px; justify-self: center; filter: drop-shadow(0 40px 60px rgba(0,0,0,.6)); }
+    .clap__stick {
+      position: relative; height: 54px; border-radius: 10px 10px 4px 4px; transform-origin: 6% 100%;
+      background: repeating-linear-gradient(-55deg, var(--white) 0 26px, var(--black) 26px 52px);
+      border: 3px solid var(--white); animation: clap 2.6s var(--ease-out) infinite;
+    }
+    .clap__stick--top { z-index: 2; }
+    .clap__stick--bottom { margin-top: 6px; background: repeating-linear-gradient(55deg, var(--white) 0 26px, var(--black) 26px 52px); animation: none; border-radius: 4px; }
+    .clap__hinge { position: absolute; left: 3%; bottom: -10px; width: 18px; height: 18px; border-radius: 50%; background: var(--fire); box-shadow: 0 0 12px var(--fire); z-index: 3; }
+    @keyframes clap {
+      0% { transform: rotate(-24deg); } 38% { transform: rotate(-24deg); }
+      48% { transform: rotate(0); } 52% { transform: rotate(-3deg); } 56% { transform: rotate(0); } 100% { transform: rotate(0); }
+    }
+    .clap__board {
+      margin-top: 6px; padding: 18px 20px 20px; border-radius: 4px 4px 16px 16px; background: var(--black-2);
+      border: 3px solid var(--white); display: grid; gap: 12px;
+    }
+    .clap__row { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid rgba(255,255,255,.85); }
+    .clap__row:last-child { border-bottom: 0; }
+    .clap__cell { padding: 6px 10px 10px; border-left: 2px solid rgba(255,255,255,.85); }
+    .clap__cell:first-child { border-left: 0; padding-left: 0; }
+    .clap__cell small { display: block; font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .clap__cell b { display: block; margin-top: 4px; font-family: var(--f-display); font-weight: 800; font-size: clamp(22px, 2.6vw, 34px); letter-spacing: -.03em; }
+    .clap__cell b.fire { color: var(--fire); }
+    .clap__wide { grid-column: 1 / -1; padding-left: 0; border-left: 0; }
+    .clap__wide b { font-size: clamp(16px, 1.6vw, 20px); font-family: var(--f-body); font-weight: 600; letter-spacing: 0; }
+    .clack {
+      position: absolute; right: -6px; top: -30px; font-family: var(--f-display); font-weight: 900; font-size: 22px; color: var(--fire);
+      opacity: 0; transform: rotate(10deg) scale(.6); animation: clack 2.6s var(--ease-out) infinite;
+    }
+    @keyframes clack { 0%, 46% { opacity: 0; transform: rotate(10deg) scale(.6); } 50% { opacity: 1; transform: rotate(10deg) scale(1.1); } 70%, 100% { opacity: 0; transform: rotate(10deg) scale(1.3); } }
+
+    /* Copy */
+    .eyebrow { font-family: var(--f-mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--fire); }
+    h1 { margin: 16px 0 0; font-family: var(--f-display); font-weight: 900; text-transform: uppercase; font-size: clamp(36px, 5.6vw, 76px); line-height: .95; letter-spacing: -.04em; }
+    h1 span { background: linear-gradient(90deg, var(--red), var(--fire) 40%, var(--fire-3) 60%, var(--fire)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { margin: 20px 0 0; max-width: 440px; font-size: 18px; line-height: 1.5; color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 26px; border-radius: 999px;
+      font-weight: 600; font-size: 15px; transition: background .3s, color .3s, border-color .3s, transform .2s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn--fire { background: var(--fire); color: var(--black); }
+    .btn--fire:hover { background: var(--white); }
+    .btn--ghost { border: 1px solid rgba(255,255,255,.3); }
+    .btn--ghost:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+    /* Film leader countdown */
+    .leader { display: flex; align-items: center; gap: 16px; margin-top: 32px; }
+    .leader__dial {
+      --p: 0; position: relative; flex: none; width: 64px; height: 64px; border-radius: 50%;
+      background: conic-gradient(rgba(255,74,28,.85) calc(var(--p) * 1turn), rgba(255,255,255,.08) 0);
+      display: grid; place-items: center;
+    }
+    .leader__dial::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--black); border: 1px solid rgba(255,255,255,.25); }
+    .leader__dial::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+      background: linear-gradient(rgba(255,255,255,.25), rgba(255,255,255,.25)) center / 1px 100% no-repeat, linear-gradient(rgba(255,255,255,.25), rgba(255,255,255,.25)) center / 100% 1px no-repeat;
+    }
+    .leader__num { position: relative; z-index: 1; font-family: var(--f-display); font-weight: 800; font-size: 24px; font-variant-numeric: tabular-nums; }
+    .leader__text { font-size: 15px; color: var(--muted); line-height: 1.4; }
+    .leader__text button { font: inherit; color: var(--white); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .leader.is-stopped .leader__dial { opacity: .4; }
+
+    @media (max-width: 820px) {
+      main { grid-template-columns: 1fr; text-align: left; }
+      .clap { max-width: 360px; }
+      .meta--tr { display: none; }
+      .meta--tl { left: 44px; top: 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .clap__stick--top { transform: rotate(-12deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="meta meta--tl" aria-hidden="true"><span class="rec"><i></i>REC</span><span id="tc">00:00:04:04</span></div>
+  <div class="meta meta--tr" aria-hidden="true"><span>ERR 404</span><span>A-CAM</span></div>
+
+  <main>
+    <div class="clap" aria-hidden="true">
+      <span class="clack">ЩЁЛК!</span>
+      <div class="clap__stick clap__stick--top"></div>
+      <div class="clap__stick clap__stick--bottom"><span class="clap__hinge"></span></div>
+      <div class="clap__board">
+        <div class="clap__row">
+          <div class="clap__cell"><small>Сцена</small><b class="fire">404</b></div>
+          <div class="clap__cell"><small>Дубль</small><b>01</b></div>
+          <div class="clap__cell"><small>Ролл</small><b>A7</b></div>
+        </div>
+        <div class="clap__row">
+          <div class="clap__cell"><small>Режиссёр</small><b>arkh</b></div>
+          <div class="clap__cell"><small>Камера</small><b>A</b></div>
+          <div class="clap__cell"><small>Дата</small><b id="date">—</b></div>
+        </div>
+        <div class="clap__row"><div class="clap__cell clap__wide"><small>Продакшн</small><b>Кадр не найден</b></div></div>
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Ошибка 404 · дубль не удался</p>
+      <h1>Стоп!<br><span>Снято не&nbsp;то</span></h1>
+      <p class="lead">Такой страницы нет — похоже, этот кадр ушёл в корзину монтажёра. Возвращаемся на площадку?</p>
+      <div class="actions">
+        <a class="btn btn--fire js-home" href="./">На главную →</a>
+        <a class="btn btn--ghost" href="https://t.me/alexey_arkh" target="_blank" rel="noopener">Написать в Telegram</a>
+      </div>
+      <div class="leader" id="leader" role="status" aria-live="polite">
+        <div class="leader__dial"><span class="leader__num" id="num">10</span></div>
+        <p class="leader__text">Вернём вас на главную через <b id="sec">10</b>&nbsp;с.<br><button type="button" id="stay">Остаться здесь</button></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      // Home URL works for both a custom domain and a GitHub Pages project site (/repo/)
+      var seg = location.pathname.split("/").filter(Boolean)[0];
+      var home = /github\.io$/.test(location.hostname) && seg ? "/" + seg + "/" : "/";
+      document.querySelectorAll(".js-home").forEach(function (a) { a.href = home; });
+
+      var d = new Date();
+      document.getElementById("date").textContent = String(d.getDate()).padStart(2, "0") + "." + String(d.getMonth() + 1).padStart(2, "0");
+
+      // Timecode
+      var tc = document.getElementById("tc"), t0 = performance.now();
+      var pad = function (n) { return String(n).padStart(2, "0"); };
+      (function tick(now) {
+        var f = Math.floor((now - t0) / (1000 / 24)), s = Math.floor(f / 24);
+        tc.textContent = "00:" + pad(Math.floor(s / 60) % 60) + ":" + pad(s % 60) + ":" + pad(f % 24);
+        requestAnimationFrame(tick);
+      })(t0);
+
+      // Film-leader countdown back to home
+      var total = 10, start = performance.now(), stopped = false;
+      var leader = document.getElementById("leader"), dial = leader.querySelector(".leader__dial");
+      var num = document.getElementById("num"), sec = document.getElementById("sec");
+      document.getElementById("stay").addEventListener("click", function () {
+        stopped = true; leader.classList.add("is-stopped");
+        leader.querySelector(".leader__text").textContent = "Хорошо, остаёмся. Главная — по кнопке выше.";
+      });
+      (function run(now) {
+        if (stopped) return;
+        var el = (now - start) / 1000, left = Math.max(0, Math.ceil(total - el));
+        dial.style.setProperty("--p", (el % 1).toFixed(3));
+        num.textContent = left; sec.textContent = left;
+        if (el >= total) { location.href = home; return; }
+        requestAnimationFrame(run);
+      })(start);
+    })();
+  </script>
+</body>
+</html>

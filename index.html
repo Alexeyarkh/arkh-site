@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=6">
+  <link rel="stylesheet" href="assets/css/style.css?v=9">
   <script>
     (function () {
       var d = document.documentElement;
@@ -30,7 +30,7 @@
 
 <a class="skip" href="#main">К содержанию</a>
 <div class="grain" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"><span class="cursor__label">Смотреть</span></div>
+<div class="cursor" aria-hidden="true"><span class="cursor__blob"></span><span class="cursor__label">Смотреть</span></div>
 
 <!-- ================= INTRO SLATE ================= -->
 <div class="slate" aria-hidden="true">
@@ -114,8 +114,8 @@
     <p class="eyebrow mono reveal">Видеопродакшн полного цикла</p>
     <h1 class="hero__title">
       <span class="line"><span>Снимаем рекламу,</span></span>
-      <span class="line"><span>которую <span class="capsule capsule--inline"><span class="capsule__fire"></span></span></span></span>
-      <span class="line"><span class="fire-text">досматривают</span></span>
+      <span class="line"><span>которую</span></span>
+      <span class="line line--accent"><span class="hero__accent"><span class="fire-text js-follow">досматривают</span><svg class="stroke" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M4 30 C 120 8, 260 6, 380 16 S 560 34, 596 12" pathLength="1"/></svg></span></span>
     </h1>
     <div class="hero__bottom">
       <p class="hero__lead reveal">Рекламные ролики, рилсы и видеографика для брендов, которым нужно выделиться в ленте и продавать.</p>
@@ -129,39 +129,30 @@
     </div>
   </div>
 
-  <a href="#works" class="case-card reveal" data-cursor>
-    <div class="case-card__bg fire-bg fire-bg--car"></div>
-    <span class="tag mono">кейс 01</span>
-    <div class="case-card__body">
-      <strong>Рекламный ролик</strong>
-      <small>Дерзко, динамично, в цель</small>
-    </div>
-    <span class="case-card__arrow">↗</span>
-  </a>
+  <div class="cases reveal" role="group" aria-label="Избранные кейсы">
+    <div class="cases__stack"></div>
+    <div class="cases__nav mono"><span class="cases__count">01 / 03</span><span class="cases__bar"><i></i></span></div>
+  </div>
 
   <div class="hero__scroll mono" aria-hidden="true"><span></span>Скролл</div>
 </section>
 
-<!-- ================= MARQUEE ================= -->
-<div class="tape" aria-hidden="true">
-  <div class="tape__row tape__row--fire"><div class="tape__track">
-    <span>Реклама</span><b>✦</b><span>Рилсы</span><b>✦</b><span>Motion</span><b>✦</b><span>Имиджевые фильмы</span><b>✦</b><span>Маркетплейсы</span><b>✦</b><span>Монтаж и цвет</span><b>✦</b>
+<!-- ================= TICKER ================= -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__row"><div class="ticker__track">
+    <span>Реклама</span><i class="ticker__star"></i><span class="o">Рилсы</span><i class="ticker__star"></i><span>Motion</span><i class="ticker__star"></i><span class="o">Имиджевые фильмы</span><i class="ticker__star"></i><span>Маркетплейсы</span><i class="ticker__star"></i><span class="o">Монтаж и цвет</span><i class="ticker__star"></i>
   </div></div>
-  <div class="tape__row tape__row--dark"><div class="tape__track tape__track--rev">
-    <span>Досматривают</span><b>●</b><span>Пересылают</span><b>●</b><span>Покупают</span><b>●</b><span>Запоминают</span><b>●</b><span>Досматривают</span><b>●</b><span>Пересылают</span><b>●</b>
+  <div class="ticker__row ticker__row--sub"><div class="ticker__track ticker__track--rev">
+    <span>Досматривают</span><b>/</b><span>Пересылают</span><b>/</b><span>Покупают</span><b>/</b><span>Запоминают</span><b>/</b><span>Досматривают</span><b>/</b><span>Пересылают</span><b>/</b><span>Покупают</span><b>/</b><span>Запоминают</span><b>/</b>
   </div></div>
 </div>
 
 <!-- ================= ABOUT ================= -->
 <section class="about section light" id="about">
   <div class="container">
-    <div class="section-label mono"><span>01</span>О студии</div>
+    <div class="section-label"><span>01</span>О студии</div>
     <p class="manifest js-words">
-      <b class="js-brand">arkh</b> — видеопродакшн смелых
-      <span class="capsule capsule--inline"><span class="capsule__fire"></span></span>
-      авторов, которые превращают задачи бизнеса в ролики, от которых
-      <span class="capsule capsule--inline capsule--sm"><span class="capsule__fire capsule__fire--alt"></span></span>
-      невозможно оторваться
+      <b class="js-brand">arkh</b> — видеопродакшн <em>смелых</em> авторов, которые превращают задачи бизнеса в ролики, от которых <em>невозможно</em> оторваться
     </p>
     <p class="about__note reveal">Мы думаем как маркетологи и снимаем как киношники. Каждый кадр работает на одну цель — чтобы ваш бренд заметили, запомнили и выбрали.</p>
 
@@ -218,7 +209,7 @@
 <section class="services section" id="services">
   <div class="container">
     <div class="section-head">
-      <div class="section-label mono"><span>02</span>Что мы делаем</div>
+      <div class="section-label"><span>02</span>Что мы делаем</div>
       <h2 class="h2 reveal">Услуги</h2>
     </div>
     <ul class="svc">
@@ -274,19 +265,17 @@
   </div>
 
   <div class="container why__body light">
-    <div class="section-label mono"><span>03</span>Почему мы</div>
+    <div class="section-label"><span>03</span>Почему мы</div>
     <p class="manifest js-words">
-      Мы не продаём «съёмку» — мы
-      <span class="capsule capsule--inline"><span class="capsule__fire"></span></span>
-      решаем задачу бренда, превращая идею в видео, которое смотрят, пересылают и после которого покупают
+      Мы не продаём «съёмку» — мы <em>решаем</em> задачу бренда, превращая идею в видео, которое смотрят, пересылают и после которого <em>покупают</em>
     </p>
     <ol class="usp">
-      <li class="usp__item reveal"><span class="usp__n mono">01</span><h3>Сценарий под цель</h3><p>Каждый ролик начинается с вопроса «что должен сделать зритель?». Креатив подчинён результату.</p></li>
-      <li class="usp__item reveal"><span class="usp__n mono">02</span><h3>Полный цикл под ключ</h3><p>Идея, сценарий, кастинг, локации, съёмка, монтаж, цвет, звук и графика — всё внутри команды.</p></li>
-      <li class="usp__item reveal"><span class="usp__n mono">03</span><h3>Кино-оборудование</h3><p>Кинокамеры, оптика, свет и стабилизация уровня большого продакшна — даже для рилсов.</p></li>
-      <li class="usp__item reveal"><span class="usp__n mono">04</span><h3>Рилсы под алгоритмы</h3><p>Знаем, как удержать внимание в первые 2 секунды и как ролик поведёт себя в ленте.</p></li>
-      <li class="usp__item reveal"><span class="usp__n mono">05</span><h3>Фиксированная смета</h3><p>Прозрачная стоимость и сроки до старта. Никаких сюрпризов в конце проекта.</p></li>
-      <li class="usp__item reveal"><span class="usp__n mono">06</span><h3>Один контакт</h3><p>Личный продюсер на связи в Telegram на каждом этапе — от брифа до финальной версии.</p></li>
+      <li class="usp__item reveal js-spot"><span class="usp__n mono">01</span><h3>Сценарий под цель</h3><p>Каждый ролик начинается с вопроса «что должен сделать зритель?». Креатив подчинён результату.</p></li>
+      <li class="usp__item reveal js-spot"><span class="usp__n mono">02</span><h3>Полный цикл под ключ</h3><p>Идея, сценарий, кастинг, локации, съёмка, монтаж, цвет, звук и графика — всё внутри команды.</p></li>
+      <li class="usp__item reveal js-spot"><span class="usp__n mono">03</span><h3>Кино-оборудование</h3><p>Кинокамеры, оптика, свет и стабилизация уровня большого продакшна — даже для рилсов.</p></li>
+      <li class="usp__item reveal js-spot"><span class="usp__n mono">04</span><h3>Рилсы под алгоритмы</h3><p>Знаем, как удержать внимание в первые 2 секунды и как ролик поведёт себя в ленте.</p></li>
+      <li class="usp__item reveal js-spot"><span class="usp__n mono">05</span><h3>Фиксированная смета</h3><p>Прозрачная стоимость и сроки до старта. Никаких сюрпризов в конце проекта.</p></li>
+      <li class="usp__item reveal js-spot"><span class="usp__n mono">06</span><h3>Один контакт</h3><p>Личный продюсер на связи в Telegram на каждом этапе — от брифа до финальной версии.</p></li>
     </ol>
   </div>
 </section>
@@ -296,9 +285,10 @@
   <div class="container">
     <div class="section-head section-head--row">
       <div>
-        <div class="section-label mono"><span>04</span>Портфолио</div>
+        <div class="section-label"><span>04</span>Портфолио</div>
         <h2 class="h2 reveal">Работы</h2>
       </div>
+      <div class="works__controls">
       <div class="filters" role="group" aria-label="Фильтр работ">
         <button class="chip is-active" data-filter="all" aria-pressed="true">Все</button>
         <button class="chip" data-filter="ads" aria-pressed="false">Реклама</button>
@@ -306,20 +296,23 @@
         <button class="chip" data-filter="motion" aria-pressed="false">Motion</button>
         <button class="chip" data-filter="brand" aria-pressed="false">Имиджевые</button>
       </div>
+      <div class="arrows">
+        <button class="arrow js-prev" type="button" aria-label="Предыдущая работа">←</button>
+        <button class="arrow js-next" type="button" aria-label="Следующая работа">→</button>
+      </div>
+      </div>
     </div>
   </div>
-  <div class="works__scroller"><div class="works__grid" id="worksGrid"></div></div>
+  <div class="works__scroller" tabindex="0" aria-label="Лента работ — листайте вбок"><div class="works__grid" id="worksGrid"></div></div>
   <div class="container"><div class="works__bar" aria-hidden="true"><span></span></div></div>
 </section>
 
 <!-- ================= BACKSTAGE ================= -->
 <section class="backstage light" id="backstage">
   <div class="container">
-    <div class="section-label mono"><span>05</span>Бэкстейдж</div>
+    <div class="section-label"><span>05</span>Бэкстейдж</div>
     <p class="manifest js-words">
-      За каждым роликом — команда, свет, камеры и
-      <span class="capsule capsule--inline"><span class="capsule__fire"></span></span>
-      десятки часов, чтобы в кадре было ровно то, что продаёт
+      За каждым роликом — команда, свет, камеры и <em>десятки</em> часов, чтобы в кадре было ровно то, что <em>продаёт</em>
     </p>
   </div>
   <div class="strip" id="backstageStrip"></div>
@@ -347,46 +340,61 @@
   </div>
 
   <div class="container contact__inner">
-    <div class="section-label mono"><span>06</span>Контакт</div>
-    <h2 class="contact__title">
-      <span class="line"><span>Давайте</span></span>
-      <span class="line"><span>снимем <span class="fire-text">дерзко</span></span></span>
-    </h2>
-    <div class="contact__row">
-      <p class="reveal">Расскажите о задаче в Telegram — ответим в течение часа, предложим идею и посчитаем смету.</p>
-      <a href="#" class="tg-btn js-tg magnetic" data-cursor>
-        <span class="tg-btn__ring"></span>
-        <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13 1.5 11.5c-1-.3-1.1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5z"/></svg>
-        <span class="tg-btn__text">Написать<br>в Telegram</span>
+    <div class="contact__top">
+      <div>
+        <div class="section-label"><span>06</span>Контакт</div>
+        <h2 class="contact__title">
+          <span class="line"><span>Давайте снимем</span></span>
+          <span class="line"><span class="rotator" aria-label="дерзко"><span class="rotator__list fire-text"><span>дерзко</span><span>смело</span><span>вирусно</span><span>красиво</span><span>дерзко</span></span></span></span></span>
+        </h2>
+        <p class="contact__lead reveal">Расскажите о задаче — ответим в течение часа, предложим идею и посчитаем смету.</p>
+      </div>
+      <div class="tg-wrap reveal">
+      <div class="qr" aria-hidden="true">
+        <div class="qr__code js-qr"></div>
+        <p class="qr__caption">Наведите камеру телефона</p>
+      </div>
+      <a href="#" class="tg-card js-tg magnetic-soft">
+        <span class="tg-card__glow"></span>
+        <span class="tg-card__icon"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13 1.5 11.5c-1-.3-1.1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5z"/></svg></span>
+        <span class="tg-card__body">
+          <span class="tg-card__status mono"><i></i>На связи сейчас</span>
+          <span class="tg-card__title">Написать в Telegram</span>
+          <span class="tg-card__handle mono js-tg-handle">@arkh</span>
+        </span>
+        <span class="tg-card__arrow">↗</span>
       </a>
+      </div>
     </div>
   </div>
 
   <div class="wordmark" aria-hidden="true"><span class="js-brand-split">arkh</span></div>
 
   <footer class="footer container">
-    <div class="footer__col">
-      <h4 class="mono">Локация</h4>
-      <p class="js-city">Москва — снимаем по всему миру</p>
+    <p class="js-city">Москва — снимаем по всему миру</p>
+    <div class="footer__links js-socials"></div>
+    <div class="footer__links">
+      <a href="#about">О нас</a><a href="#services">Услуги</a><a href="#works">Работы</a><a href="#backstage">Бэкстейдж</a>
     </div>
-    <div class="footer__col">
-      <h4 class="mono">Соцсети</h4>
-      <div class="footer__links js-socials"></div>
-    </div>
-    <div class="footer__col">
-      <h4 class="mono">Навигация</h4>
-      <div class="footer__links">
-        <a href="#about">О нас</a><a href="#services">Услуги</a><a href="#works">Работы</a><a href="#backstage">Бэкстейдж</a>
-      </div>
-    </div>
-    <div class="footer__col footer__col--end">
-      <a href="#top" class="footer__up mono">Наверх ↑</a>
+    <div class="footer__end">
       <small class="footer__copy mono">© <span class="js-year">2026</span> <span class="js-brand">arkh</span> production</small>
+      <a href="#top" class="footer__up mono">Наверх ↑</a>
     </div>
   </footer>
 </section>
 
 </main>
+
+<!-- ================= NO SIGNAL (offline) ================= -->
+<div class="signal" id="signal" role="alert" aria-live="assertive" hidden>
+  <div class="signal__bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="signal__box">
+    <span class="mono signal__tag"><i></i>No signal</span>
+    <h2>Сигнал пропал</h2>
+    <p>Похоже, отключился интернет. Мы на паузе — как только связь вернётся, продолжим с этого кадра.</p>
+    <button class="btn btn--fire js-retry" type="button">Проверить снова</button>
+  </div>
+</div>
 
 <!-- ================= VIDEO MODAL ================= -->
 <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -404,10 +412,11 @@
   </div>
 </div>
 
-<script src="assets/js/config.js?v=6"></script>
+<script src="assets/js/config.js?v=9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="assets/js/main.js?v=6"></script>
+<script src="assets/js/main.js?v=9"></script>
 </body>
 </html>

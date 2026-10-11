@@ -22,6 +22,8 @@
     el.innerHTML = [...brand].map(ch => `<span class="ch">${ch === " " ? "&nbsp;" : ch}</span>`).join("");
   });
   $$(".js-tg").forEach(a => { a.href = S.TELEGRAM_URL || "#"; a.target = "_blank"; a.rel = "noopener"; });
+  const tgHandle = (S.TELEGRAM_URL || "").match(/t\.me\/([\w\d_]+)/);
+  if (tgHandle) $$(".js-tg-handle").forEach(el => (el.textContent = "@" + tgHandle[1]));
   $$(".js-year").forEach(el => (el.textContent = S.YEAR || new Date().getFullYear()));
   if (S.CITY) $$(".js-city").forEach(el => (el.textContent = S.CITY));
   $$(".js-socials").forEach(el => {
@@ -67,8 +69,9 @@
     requestAnimationFrame(tick);
   }
 
-  /* ---------- Tape marquee: duplicate tracks for a seamless loop ---------- */
-  $$(".tape__track").forEach(t => (t.innerHTML += t.innerHTML));
+  /* ---------- Ticker: duplicate tracks for a seamless loop ---------- */
+  const tickers = $$(".ticker__track");
+  tickers.forEach(t => (t.innerHTML += t.innerHTML));
 
   /* ---------- Works ---------- */
   const grid = $("#worksGrid");
@@ -108,10 +111,107 @@
     $$(".chip").forEach(c => { c.classList.toggle("is-active", c === chip); c.setAttribute("aria-pressed", c === chip); });
     const f = chip.dataset.filter;
     $$(".work", grid).forEach(w => w.classList.toggle("is-hidden", f !== "all" && w.dataset.cat !== f));
-    $(".works__scroller").scrollLeft = 0;
+    scroller.scrollTo({ left: 0, behavior: reduced ? "auto" : "smooth" });
+    setTimeout(updateWorks, 50);
     if (animated) gsap.fromTo($$(".work:not(.is-hidden)", grid), { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: .06, duration: .7, ease: "power3.out" });
     window.ScrollTrigger && ScrollTrigger.refresh();
   }));
+
+  /* ---------- Hero case stack (sonner-like) ---------- */
+  const stack = $(".cases__stack");
+  if (stack) {
+    const variants = ["fire-bg--car", "fire-bg--mono", ""];
+    const picks = works.slice(0, 3);
+    const cards = picks.map((w, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "case-card";
+      b.setAttribute("data-cursor", "");
+      b.innerHTML = `
+        <div class="case-card__bg ${w.poster ? "" : "fire-bg " + variants[i % 3]}">${w.poster ? `<img src="${w.poster}" alt="" style="width:100%;height:100%;object-fit:cover">` : ""}</div>
+        <span class="tag mono">кейс ${String(i + 1).padStart(2, "0")}</span>
+        <div class="case-card__body"><strong>${w.title}</strong><small>${CATS[w.category] || ""}${w.client ? " · " + w.client : ""}</small></div>
+        <span class="case-card__arrow">↗</span>`;
+      stack.appendChild(b);
+      return b;
+    });
+    let order = cards.map((_, i) => i); // order[pos] = card index
+    const count = $(".cases__count"), barI = $(".cases__bar i");
+    const paint = () => {
+      order.forEach((ci, pos) => { cards[ci].dataset.i = pos; cards[ci].style.setProperty("--i", pos); cards[ci].tabIndex = pos === 0 ? 0 : -1; });
+      count.textContent = `${String(order[0] + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+      barI.classList.remove("is-run"); void barI.offsetWidth;
+      if (!reduced && cards.length > 1) barI.classList.add("is-run");
+    };
+    const bring = ci => { const k = order.indexOf(ci); order = order.slice(k).concat(order.slice(0, k)); paint(); };
+    cards.forEach((c, ci) => c.addEventListener("click", () => (order[0] === ci ? openModal(picks[ci], c) : bring(ci))));
+    barI.addEventListener("animationend", () => bring(order[1]));
+    paint();
+  }
+
+  /* ---------- QR code for Telegram ---------- */
+  const qrBox = $(".js-qr");
+  if (qrBox && window.qrcode && S.TELEGRAM_URL) {
+    const qr = qrcode(0, "M"); qr.addData(S.TELEGRAM_URL); qr.make();
+    const n = qr.getModuleCount();
+    const inFinder = (r, c) => (r < 7 && c < 7) || (r < 7 && c >= n - 7) || (r >= n - 7 && c < 7);
+    let dots = "";
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++)
+      if (qr.isDark(r, c) && !inFinder(r, c)) dots += `<circle cx="${c + .5}" cy="${r + .5}" r=".43"/>`;
+    const eye = (x, y) => `<rect x="${x + .5}" y="${y + .5}" width="6" height="6" rx="2" fill="none" stroke="#0a0a0a" stroke-width="1"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" rx=".9"/>`;
+    qrBox.innerHTML = `<svg viewBox="0 0 ${n} ${n}" fill="#0a0a0a" role="img" aria-label="QR-код ссылки на Telegram">${dots}${eye(0, 0)}${eye(n - 7, 0)}${eye(0, n - 7)}</svg>`;
+  } else root.classList.add("no-qr");
+
+  /* ---------- Works slider: drag, arrows, progress ---------- */
+  const scroller = $(".works__scroller"), bar = $(".works__bar span");
+  const prevBtn = $(".js-prev"), nextBtn = $(".js-next");
+  let dragMoved = false;
+  function updateWorks() {
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    const p = max > 0 ? scroller.scrollLeft / max : 0;
+    bar.style.transform = `scaleX(${Math.max(.04, p)})`;
+    prevBtn.disabled = scroller.scrollLeft < 4;
+    nextBtn.disabled = scroller.scrollLeft > max - 4;
+  }
+  const step = dir => {
+    const card = $(".work:not(.is-hidden)", grid);
+    const w = card ? card.getBoundingClientRect().width + 16 : scroller.clientWidth * .6;
+    scroller.scrollBy({ left: dir * w, behavior: reduced ? "auto" : "smooth" });
+  };
+  prevBtn.addEventListener("click", () => step(-1));
+  nextBtn.addEventListener("click", () => step(1));
+  scroller.addEventListener("scroll", updateWorks, { passive: true });
+  scroller.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+  });
+  // Mouse drag (touch uses native swipe)
+  let dragX = 0, startLeft = 0, dragging = false;
+  scroller.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    dragging = true; dragMoved = false; dragX = e.clientX; startLeft = scroller.scrollLeft;
+  });
+  addEventListener("pointermove", e => {
+    if (!dragging) return;
+    const dx = e.clientX - dragX;
+    if (!dragMoved && Math.abs(dx) > 6) { dragMoved = true; scroller.classList.add("is-dragging"); }
+    if (dragMoved) scroller.scrollLeft = startLeft - dx;
+  });
+  addEventListener("pointerup", () => {
+    if (!dragging) return;
+    dragging = false;
+    if (dragMoved) {
+      scroller.classList.remove("is-dragging");
+      // snap to nearest card after drag
+      const cards = $$(".work:not(.is-hidden)", grid);
+      const pad = parseFloat(getComputedStyle(scroller).paddingLeft);
+      const near = cards.reduce((a, c) => Math.abs(c.offsetLeft - pad - scroller.scrollLeft) < Math.abs(a.offsetLeft - pad - scroller.scrollLeft) ? c : a, cards[0]);
+      near && scroller.scrollTo({ left: near.offsetLeft - pad, behavior: "smooth" });
+      setTimeout(() => (dragMoved = false), 0);
+    }
+  });
+  scroller.addEventListener("click", e => { if (dragMoved) { e.stopPropagation(); e.preventDefault(); } }, true);
+  updateWorks();
 
   /* ---------- Modal ---------- */
   const modal = $("#modal");
@@ -170,7 +270,7 @@
           else { const s = document.createElement("span"); s.className = "w"; s.textContent = part; frag.appendChild(s); }
         });
         n.replaceWith(frag);
-      } else if (n.nodeType === 1 && n.tagName === "B") {
+      } else if (n.nodeType === 1 && (n.tagName === "B" || n.tagName === "EM")) {
         n.classList.add("w");
       }
     });
@@ -211,7 +311,7 @@
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
   if (window.Lenis && !reduced) {
-    lenis = new Lenis({ lerp: 0.09 });
+    lenis = new Lenis({ lerp: 0.09, prevent: node => node.classList && node.classList.contains("works__scroller") && false });
     window.lenis = lenis;
     if (hasGsap && window.ScrollTrigger) {
       lenis.on("scroll", ScrollTrigger.update);
@@ -232,17 +332,31 @@
     lenis ? lenis.scrollTo(t, { offset: -10 }) : t.scrollIntoView({ behavior: "smooth" });
   }));
 
-  /* ---------- Cursor, magnetic, service preview ---------- */
-  const cursor = $(".cursor");
+  /* ---------- Cursor (liquid glass drop), magnetic, service preview, spotlight ---------- */
+  const cursor = $(".cursor"), blobLabel = $(".cursor__label");
   if (canHover) {
-    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
+    root.classList.add("has-cursor");
+    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy, seen = false;
     const preview = $(".svc-preview"), previewBg = $(".fire-bg", preview);
     let px = cx, py = cy;
-    addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; });
+    cursor.style.opacity = "0";
+    addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; if (!seen) { seen = true; cx = tx; cy = ty; cursor.style.opacity = "1"; } });
+    document.addEventListener("mouseleave", () => (cursor.style.opacity = "0"));
+    document.addEventListener("mouseenter", () => seen && (cursor.style.opacity = "1"));
+    addEventListener("mousedown", () => cursor.classList.add("is-down"));
+    addEventListener("mouseup", () => cursor.classList.remove("is-down"));
+    const blob = $(".cursor__blob");
     const loop = () => {
-      cx += (tx - cx) * .2; cy += (ty - cy) * .2;
+      const dx = tx - cx, dy = ty - cy;
+      cx += dx * .22; cy += dy * .22;
       px += (tx - px) * .1; py += (ty - py) * .1;
+      // liquid stretch along the direction of travel
+      const speed = Math.min(Math.hypot(dx, dy), 160);
+      const k = cursor.classList.contains("is-big") ? .0012 : .004;
+      const st = Math.min(speed * k, .45);
+      const ang = Math.atan2(dy, dx) * 180 / Math.PI;
       cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+      blob.style.transform = `rotate(${ang}deg) scale(${1 + st}, ${1 - st * .6})${cursor.classList.contains("is-down") ? " scale(.8)" : ""}`;
       if (preview.classList.contains("is-on")) {
         const rot = Math.max(-12, Math.min(12, (tx - px) * .08));
         preview.style.transform = `translate(${px + 40}px, ${py}px) translate(0,-50%) rotate(${rot}deg)`;
@@ -252,22 +366,44 @@
     loop();
     document.addEventListener("mouseover", e => {
       const svc = e.target.closest(".svc__item");
-      cursor.classList.toggle("is-big", !!e.target.closest("[data-cursor]") && !svc);
+      const big = e.target.closest("[data-cursor]") && !svc;
+      cursor.classList.toggle("is-big", !!big);
+      if (big) blobLabel.textContent = e.target.closest(".tg-card") ? "Написать" : e.target.closest(".works__scroller") ? "Смотреть" : "Открыть";
       if (svc) {
         previewBg.className = "fire-bg " + (svc.dataset.preview || "");
         if (!preview.classList.contains("is-on")) { px = tx; py = ty; }
         preview.classList.add("is-on");
       } else preview.classList.remove("is-on");
     });
-    $$(".magnetic").forEach(el => {
+    const magnet = (el, f) => {
       el.addEventListener("mousemove", e => {
         const r = el.getBoundingClientRect();
-        el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .2}px, ${(e.clientY - r.top - r.height / 2) * .3}px)`;
+        el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * f}px, ${(e.clientY - r.top - r.height / 2) * f * 1.4}px)`;
       });
       el.addEventListener("mouseleave", () => (el.style.transform = ""));
-    });
+    };
+    $$(".magnetic").forEach(el => magnet(el, .2));
+    $$(".magnetic-soft").forEach(el => magnet(el, .06));
+    // spotlight cards
+    $$(".js-spot").forEach(el => el.addEventListener("mousemove", e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--x", `${e.clientX - r.left}px`);
+      el.style.setProperty("--y", `${e.clientY - r.top}px`);
+    }));
+    // hero accent word follows the cursor
+    const hero = $(".hero");
+    hero.classList.add("is-following");
+    hero.addEventListener("mousemove", e => hero.style.setProperty("--mx", `${(1 - e.clientX / innerWidth) * 100}%`));
   }
   $$(".svc__item").forEach(li => li.addEventListener("click", () => window.open(S.TELEGRAM_URL || "#", "_blank", "noopener")));
+
+  /* ---------- No signal overlay ---------- */
+  const signal = $("#signal");
+  const setSignal = off => { signal.hidden = !off; lenis && (off ? lenis.stop() : lenis.start()); };
+  addEventListener("offline", () => setSignal(true));
+  addEventListener("online", () => setSignal(false));
+  $(".js-retry").addEventListener("click", () => (navigator.onLine ? setSignal(false) : location.reload()));
+  if (navigator.onLine === false) setSignal(true);
 
   /* ---------- Counters ---------- */
   const io = new IntersectionObserver(entries => entries.forEach(en => {
@@ -292,6 +428,7 @@
     .from(".vf__c", { scale: 2.2, opacity: 0, duration: 1.2, stagger: .05 }, 0)
     .from(".vf__meta, .vf__cross", { opacity: 0, duration: .8, stagger: .08 }, .4)
     .to(".hero .line > span", { y: 0, duration: 1.3, stagger: .1 }, .15)
+    .to(".stroke path", { strokeDashoffset: 0, duration: 1.4, ease: "power3.inOut" }, .9)
     .to(".hero .reveal", { opacity: 1, y: 0, duration: 1.1, stagger: .1 }, .6)
     .from(".header > *", { y: -24, opacity: 0, duration: 1, stagger: .06 }, .5)
     .from(".hero__scroll", { opacity: 0, duration: 1 }, 1);
@@ -301,9 +438,17 @@
   gsap.to(".hero__content", { yPercent: -18, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "center center", end: "bottom top", scrub: true } });
   gsap.to(".case-card", { yPercent: -60, rotate: 6, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
-  // Tape tilt with scroll
-  gsap.fromTo(".tape__row--fire", { rotate: -5 }, { rotate: -1, ease: "none", scrollTrigger: { trigger: ".tape", start: "top bottom", end: "bottom top", scrub: true } });
-  gsap.fromTo(".tape__row--dark", { rotate: 5 }, { rotate: 1, ease: "none", scrollTrigger: { trigger: ".tape", start: "top bottom", end: "bottom top", scrub: true } });
+  // Ticker reacts to scroll velocity: speeds up and skews
+  const anims = tickers.map(t => t.getAnimations()[0]).filter(Boolean);
+  const skewTo = gsap.quickTo(".ticker__track", "skewX", { duration: .5, ease: "power3.out" });
+  let rate = 1;
+  gsap.ticker.add(() => {
+    const v = lenis ? lenis.velocity : 0;
+    const target = 1 + Math.min(Math.abs(v) * .25, 6);
+    rate += (target - rate) * .08;
+    anims.forEach(a => (a.playbackRate = rate));
+    skewTo(Math.max(-12, Math.min(12, -v * .6)));
+  });
 
   // Generic reveals
   $$(".reveal").forEach(el => {
@@ -336,28 +481,7 @@
   // Why banner
   gsap.from(".why__streaks", { scaleX: 1.6, opacity: 0, ease: "none", scrollTrigger: { trigger: ".why__banner", start: "top bottom", end: "center center", scrub: true } });
 
-  // Works: pinned horizontal reel on desktop, native swipe on mobile
-  const mm = gsap.matchMedia();
-  const scroller = $(".works__scroller"), bar = $(".works__bar span");
-  mm.add("(min-width: 900px)", () => {
-    const works = $("#works");
-    works.classList.add("is-pinned");
-    const dist = () => Math.max(0, grid.scrollWidth - innerWidth + parseFloat(getComputedStyle(scroller).paddingLeft));
-    const tween = gsap.to(grid, {
-      x: () => -dist(), ease: "none",
-      scrollTrigger: {
-        trigger: works, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true,
-        onUpdate: self => gsap.set(bar, { scaleX: self.progress }),
-      },
-    });
-    return () => { works.classList.remove("is-pinned"); tween.scrollTrigger.kill(); tween.kill(); gsap.set(grid, { x: 0 }); };
-  });
-  mm.add("(max-width: 899px)", () => {
-    const upd = () => gsap.set(bar, { scaleX: scroller.scrollLeft / Math.max(1, scroller.scrollWidth - scroller.clientWidth) });
-    scroller.addEventListener("scroll", upd, { passive: true });
-    return () => scroller.removeEventListener("scroll", upd);
-  });
-  ScrollTrigger.batch(".work", { start: "top 92%", onEnter: b => gsap.from(b, { y: 60, opacity: 0, duration: 1, stagger: .1, ease: "power3.out" }), once: true });
+  gsap.from(".works__grid", { x: 160, opacity: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".works__scroller", start: "top 85%" } });
 
   // Backstage strip drift
   gsap.fromTo(strip, { x: () => innerWidth * .1 }, {
@@ -369,7 +493,11 @@
   gsap.to(".process__line", { scaleX: 1, ease: "none", scrollTrigger: { trigger: ".process", start: "top 85%", end: "bottom 60%", scrub: true } });
 
   // Wordmark fire fill
-  gsap.to(".wordmark .js-brand-split", { backgroundPosition: "0% 0", ease: "none", scrollTrigger: { trigger: ".wordmark", start: "top bottom", end: "bottom bottom", scrub: true } });
+  const wm = $(".wordmark .js-brand-split");
+  gsap.to(wm, { backgroundPosition: "0% 0", ease: "none", scrollTrigger: {
+    trigger: ".contact", start: "top 70%", end: "top top", scrub: true,
+    onUpdate: self => (wm.style.webkitTextStrokeColor = `rgba(255,255,255,${(.22 * (1 - self.progress)).toFixed(3)})`),
+  } });
 
   addEventListener("load", () => ScrollTrigger.refresh());
   document.fonts && document.fonts.ready.then(() => ScrollTrigger.refresh());
