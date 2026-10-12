@@ -75,7 +75,7 @@
       started = true;
       const r = (video.videoWidth / video.videoHeight) || 16 / 9;
       canvas.width = 640; canvas.height = Math.round(640 / r);
-      canvas.hidden = false; bgPoster.hidden = true; useMedia(); loop();
+      canvas.hidden = false; bgPoster.hidden = true; winPoster.hidden = true; useMedia(); loop();
     });
     new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;

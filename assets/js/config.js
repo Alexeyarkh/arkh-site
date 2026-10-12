@@ -10,10 +10,10 @@ window.SITE = {
 
   // Видео-подложки. Пока пусто — показываются огненные градиенты.
   // Первый экран: нарезка бэкстейджа. Фон — она же, приглушённая ч/б, справа — окно-кадр в цвете.
-  HERO_VIDEO: "",          // горизонтальная нарезка, напр. "assets/video/hero.mp4" (1920×1080, до ~10 МБ)
-  HERO_VIDEO_MOBILE: "",   // вертикальная для телефонов, напр. "assets/video/hero-mobile.mp4" (1080×1920, до ~5 МБ)
-  HERO_POSTER: "",         // стоп-кадр, пока видео грузится, напр. "assets/img/hero.jpg"
-  HERO_POSTER_MOBILE: "",  // вертикальный стоп-кадр (необязательно)
+  HERO_VIDEO: "assets/video/hero.mp4",          // горизонтальная нарезка, напр. "assets/video/hero.mp4" (1920×1080, до ~10 МБ)
+  HERO_VIDEO_MOBILE: "assets/video/hero-mobile.mp4",   // вертикальная для телефонов, напр. "assets/video/hero-mobile.mp4" (1080×1920, до ~5 МБ)
+  HERO_POSTER: "assets/img/hero.jpg",         // стоп-кадр, пока видео грузится, напр. "assets/img/hero.jpg"
+  HERO_POSTER_MOBILE: "assets/img/hero-mobile.jpg",  // вертикальный стоп-кадр (необязательно)
   HERO_IMAGE: "",          // устаревшее: используется как стоп-кадр, если HERO_POSTER пуст
   SHOWREEL_VIDEO: "",      // напр. "assets/video/showreel.mp4" — фон финального экрана и плеер «Смотреть шоурил»
 
