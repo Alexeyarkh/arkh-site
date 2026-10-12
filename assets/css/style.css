@@ -365,19 +365,19 @@ ol, ul { padding: 0; list-style: none; }
 .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
 .hero__aside {
-  position: absolute; z-index: 3; right: calc(var(--gutter) + 48px); top: calc(var(--header-h) + 64px);
-  width: clamp(300px, 28vw, 500px); display: flex; flex-direction: column; align-items: flex-end;
+  position: absolute; z-index: 3; right: calc(var(--gutter) + 48px); top: calc(var(--header-h) + 100px);
+  width: clamp(250px, 22vw, 400px); display: flex; flex-direction: column; align-items: flex-end;
 }
 /* Stacked layers peeking behind the window (sonner-like) */
 .vfwin-stack { position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 16 / 9; pointer-events: none; }
 .vfwin-stack i {
   --i: 1; position: absolute; inset: 0; border-radius: 18px; border: 1px solid rgba(255,255,255,.18); overflow: hidden;
-  transform-origin: 50% 0; transform: translateY(calc(var(--i) * -14px)) scale(calc(1 - var(--i) * .06));
+  transform-origin: 50% 0; transform: translateY(calc(var(--i) * -12px)) scale(calc(1 - var(--i) * .06));
   filter: brightness(calc(.75 - var(--i) * .18)) saturate(.8); transition: transform .8s var(--ease-out), filter .8s var(--ease-out);
 }
 .vfwin-stack i:nth-child(2) { --i: 2; }
 .vfwin-stack i:nth-child(1) { z-index: 1; }
-.hero__aside:hover .vfwin-stack i { transform: translateY(calc(var(--i) * -28px)) scale(calc(1 - var(--i) * .045)); filter: brightness(calc(.9 - var(--i) * .15)); }
+.hero__aside:hover .vfwin-stack i { transform: translateY(calc(var(--i) * -21px)) scale(calc(1 - var(--i) * .045)); filter: brightness(calc(.9 - var(--i) * .15)); }
 .hero__aside .vfwin { z-index: 2; }
 /* Viewfinder window: the same reel in full colour */
 .vfwin {
