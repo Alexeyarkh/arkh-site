@@ -164,6 +164,35 @@
     window.ScrollTrigger && ScrollTrigger.refresh();
   }));
 
+  /* ---------- Clients logos marquee ---------- */
+  const clientsTrack = $(".js-clients");
+  if (clientsTrack) {
+    const list = (S.CLIENTS || []).filter(c => c.logo);
+    const items = list.length
+      ? list.map(c => `<span class="client" title="${c.name || ""}"><img src="${c.logo}" alt="${c.name || ""}" loading="lazy"></span>`)
+      : Array.from({ length: 8 }, () => `<span class="client client--ph" aria-hidden="true">логотип</span>`);
+    const set = items.join("");
+    clientsTrack.innerHTML = set + set; // two copies for a seamless loop
+    if (!list.length) clientsTrack.closest(".clients").classList.add("is-placeholder");
+  }
+
+  /* ---------- About tiles: optional photo / video ---------- */
+  $$(".bento .card").forEach((card, i) => {
+    const src = (S.ABOUT_MEDIA || [])[i];
+    if (!src) return;
+    const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+    const bg = document.createElement("div");
+    bg.className = "card__bg card__media";
+    bg.innerHTML = isVideo
+      ? `<video src="${src}" muted playsinline loop preload="none"></video>`
+      : `<img src="${src}" alt="" loading="lazy">`;
+    $$(".card__bg", card).forEach(el => el.remove());
+    card.prepend(bg);
+    card.classList.add("card--media");
+    const v = $("video", bg);
+    if (v && !reduced) new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()), { rootMargin: "100px" }).observe(card);
+  });
+
   /* ---------- Hero case stack (sonner-like) ---------- */
   const stack = $(".cases__stack");
   if (stack) {

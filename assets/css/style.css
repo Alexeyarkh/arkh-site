@@ -517,6 +517,48 @@ ol, ul { padding: 0; list-style: none; }
 .card--line:hover { background: var(--fire); border-color: var(--fire); }
 .card--line .card__n { -webkit-text-stroke-color: var(--black); }
 
+/* About tiles: orange spotlight + glow on hover, optional media */
+.bento .card { isolation: isolate; }
+.bento .card::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; border-radius: inherit;
+  background: radial-gradient(380px circle at var(--x, 50%) var(--y, 50%), rgba(255,74,28,.42), transparent 60%);
+  transition: opacity var(--t-med);
+}
+.bento .card > :not(.card__bg) { z-index: 2; }
+.bento .card { box-shadow: 0 0 0 1px transparent; transition: transform var(--t-slow) var(--ease-out), box-shadow var(--t-med); }
+.bento .card:hover { box-shadow: 0 0 0 1px rgba(255,74,28,.7), 0 30px 70px -25px rgba(255,74,28,.55); }
+.bento .card:hover::before { opacity: 1; }
+.card__media img, .card__media video { width: 100%; height: 100%; object-fit: cover; }
+.card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.25) 40%, rgba(0,0,0,.78) 100%); }
+.card--media, .card--media.card--line { color: var(--white); border-color: transparent; }
+.card--media.card--line .card__n { -webkit-text-stroke-color: var(--white); }
+
+/* ---------- Clients ---------- */
+.clients { background: var(--black); color: var(--white); padding: clamp(56px, 7vw, 100px) 0; border-top: 1px solid rgba(255,255,255,.08); }
+.clients__title { color: rgba(255,255,255,.55); margin-bottom: clamp(24px, 3vw, 40px); text-align: center; }
+.clients__row {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.clients__track { display: flex; align-items: center; gap: clamp(28px, 4vw, 64px); width: max-content; animation: marquee 45s linear infinite; }
+.clients__row:hover .clients__track { animation-play-state: paused; }
+.client {
+  flex: none; display: grid; place-items: center; height: 72px; padding: 0 18px; border-radius: 16px;
+  transition: background var(--t-med), box-shadow var(--t-med);
+}
+.client img {
+  max-height: 44px; max-width: 170px; width: auto; height: auto; object-fit: contain;
+  filter: brightness(0) invert(1); opacity: .55; transition: filter var(--t-med), opacity var(--t-med), transform var(--t-med) var(--ease-out);
+}
+.client:hover { background: rgba(255,255,255,.04); box-shadow: 0 0 0 1px rgba(255,74,28,.5), 0 0 40px -6px rgba(255,74,28,.55); }
+.client:hover img { filter: none; opacity: 1; transform: scale(1.06); }
+.client--ph {
+  width: 170px; border: 1px dashed rgba(255,255,255,.22); color: rgba(255,255,255,.35);
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+}
+.client--ph:hover { color: var(--white); }
+
 /* ---------- Services ---------- */
 .services { position: relative; }
 .section-head { margin-bottom: clamp(44px, 6vw, 88px); }
