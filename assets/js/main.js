@@ -45,7 +45,7 @@
     const probe = document.createElement("canvas"); probe.width = 32; probe.height = 18;
     const pctx = probe.getContext("2d", { willReadFrequently: true });
     const win = $(".vfwin");
-    let prev = null, lastFlash = 0, visible = true, started = false;
+    let prev = null, lastFlash = 0, visible = true, started = false, motion = 8;
     video.src = src; if (poster) video.poster = poster;
     video.preload = "auto"; video.hidden = false;
 
@@ -58,8 +58,11 @@
       let diff = 0;
       for (let i = 0; i < 576; i++) { lum[i] = d[i * 4] * .3 + d[i * 4 + 1] * .59 + d[i * 4 + 2] * .11; if (prev) diff += Math.abs(lum[i] - prev[i]); }
       prev = lum;
-      const now = performance.now();
-      if (diff / 576 > 32 && now - lastFlash > 900) {
+      const now = performance.now(), avg = diff / 576;
+      // a cut = a sharp spike against the scene's usual motion level
+      const isCut = avg > 26 && avg > motion * 3.2;
+      motion = motion * .85 + Math.min(avg, 60) * .15;
+      if (isCut && now - lastFlash > 1200) {
         lastFlash = now; win.classList.remove("is-flash"); void win.offsetWidth; win.classList.add("is-flash");
       }
     };

@@ -866,7 +866,8 @@ ol, ul { padding: 0; list-style: none; }
   :root { --header-h: 64px; }
   .header .btn { display: none; }
   .vf { inset: calc(var(--header-h) + 4px) 12px 12px; }
-  .vf__meta--tr,   .vf__meta--tl, .vf__meta--bl { left: 24px; }
+  .vf__meta--tr { display: none; }
+  .vf__meta--tl, .vf__meta--bl { left: 24px; }
   .vf__c { width: 22px; height: 22px; }
   .hero__content { padding: calc(var(--header-h) + 60px) 24px 72px; }
   .hero__title { font-size: clamp(24px, 7.6vw, 44px); }
