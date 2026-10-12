@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=15">
+  <link rel="stylesheet" href="assets/css/style.css?v=18">
   <script>
     (function () {
       var d = document.documentElement;
@@ -95,8 +95,8 @@
         </g></g>
       </svg>
     </div>
-    <video class="hero__video" muted playsinline loop autoplay preload="metadata" hidden></video>
-    <img class="hero__img" alt="" hidden>
+    <canvas class="hero__bg" hidden></canvas>
+    <img class="hero__poster" alt="" hidden>
     <div class="hero__vignette"></div>
   </div>
 
@@ -128,9 +128,20 @@
     </div>
   </div>
 
-  <div class="cases reveal" role="group" aria-label="Избранные кейсы">
-    <div class="cases__stack"></div>
-    <div class="cases__nav mono"><span class="cases__count">01 / 03</span><span class="cases__bar"><i></i></span></div>
+  <div class="hero__aside">
+    <span class="vfwin-stack" aria-hidden="true"><i class="fire-bg fire-bg--mono"></i><i class="fire-bg"></i></span>
+    <button class="vfwin reveal js-showreel" type="button" aria-label="Смотреть шоурил" data-cursor>
+      <span class="vfwin__media">
+        <span class="fire-bg fire-bg--car vfwin__ph"></span>
+        <img class="vfwin__poster" alt="" hidden>
+        <video class="vfwin__video" muted playsinline loop preload="none" hidden></video>
+      </span>
+      <span class="vfwin__flash" aria-hidden="true"></span>
+      <span class="vfwin__c vfwin__c--tl" aria-hidden="true"></span><span class="vfwin__c vfwin__c--tr" aria-hidden="true"></span>
+      <span class="vfwin__c vfwin__c--bl" aria-hidden="true"></span><span class="vfwin__c vfwin__c--br" aria-hidden="true"></span>
+      <span class="vfwin__top mono" aria-hidden="true"><span class="rec"><i></i>REC</span><span>CAM A · 4K</span></span>
+      <span class="vfwin__play mono" aria-hidden="true"><svg viewBox="0 0 24 24" width="10" height="10"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg>Шоурил</span>
+    </button>
   </div>
 
   <div class="hero__scroll mono" aria-hidden="true"><span></span>Скролл</div>
@@ -406,6 +417,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="assets/js/main.js?v=10"></script>
+<script src="assets/js/main.js?v=12"></script>
 </body>
 </html>

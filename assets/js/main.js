@@ -30,12 +30,56 @@
     el.innerHTML = (S.SOCIALS || []).map(s => `<a href="${s.url}" target="_blank" rel="noopener">${s.name}</a>`).join("");
   });
 
-  // Hero media
-  if (S.HERO_VIDEO) {
-    const v = $(".hero__video"); v.src = S.HERO_VIDEO; v.hidden = false; $(".hero .fire-scene").style.display = "none";
-  } else if (S.HERO_IMAGE) {
-    const i = $(".hero__img"); i.src = S.HERO_IMAGE; i.hidden = false; $(".hero .fire-scene").style.display = "none";
-  }
+  /* ---------- Hero media: muted b/w backdrop + full-colour viewfinder window ---------- */
+  (() => {
+    const hero = $(".hero"), small = matchMedia("(max-width: 720px)").matches;
+    const src = (small && S.HERO_VIDEO_MOBILE) || S.HERO_VIDEO;
+    const poster = (small && S.HERO_POSTER_MOBILE) || S.HERO_POSTER || S.HERO_IMAGE;
+    const saveData = navigator.connection && navigator.connection.saveData;
+    const bgPoster = $(".hero__poster"), winPoster = $(".vfwin__poster");
+    const useMedia = () => { hero.classList.add("has-media"); $(".hero .fire-scene").style.display = "none"; $(".vfwin__ph").hidden = true; };
+    if (poster) { bgPoster.src = winPoster.src = poster; bgPoster.hidden = winPoster.hidden = false; useMedia(); }
+    if (!src || reduced || saveData) return;
+
+    const video = $(".vfwin__video"), canvas = $(".hero__bg"), ctx = canvas.getContext("2d");
+    const probe = document.createElement("canvas"); probe.width = 32; probe.height = 18;
+    const pctx = probe.getContext("2d", { willReadFrequently: true });
+    const win = $(".vfwin");
+    let prev = null, lastFlash = 0, visible = true, started = false;
+    video.src = src; if (poster) video.poster = poster;
+    video.preload = "auto"; video.hidden = false;
+
+    const draw = () => {
+      if (!visible || video.paused) return;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      // detect cuts: big jump in a 32x18 luminance map → light-leak flash on the window
+      pctx.drawImage(video, 0, 0, 32, 18);
+      const d = pctx.getImageData(0, 0, 32, 18).data, lum = new Float32Array(576);
+      let diff = 0;
+      for (let i = 0; i < 576; i++) { lum[i] = d[i * 4] * .3 + d[i * 4 + 1] * .59 + d[i * 4 + 2] * .11; if (prev) diff += Math.abs(lum[i] - prev[i]); }
+      prev = lum;
+      const now = performance.now();
+      if (diff / 576 > 32 && now - lastFlash > 900) {
+        lastFlash = now; win.classList.remove("is-flash"); void win.offsetWidth; win.classList.add("is-flash");
+      }
+    };
+    const loop = () => {
+      draw();
+      if ("requestVideoFrameCallback" in video) video.requestVideoFrameCallback(loop); else requestAnimationFrame(loop);
+    };
+    video.addEventListener("playing", () => {
+      if (started) return;
+      started = true;
+      const r = (video.videoWidth / video.videoHeight) || 16 / 9;
+      canvas.width = 640; canvas.height = Math.round(640 / r);
+      canvas.hidden = false; bgPoster.hidden = true; useMedia(); loop();
+    });
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible) { video.play().catch(() => {}); if (started && !("requestVideoFrameCallback" in video)) loop(); }
+      else video.pause();
+    }).observe(hero);
+  })();
 
   // Contact background showreel (lazy)
   if (S.SHOWREEL_VIDEO) {
@@ -368,7 +412,7 @@
       const svc = e.target.closest(".svc__item");
       const big = e.target.closest("[data-cursor]") && !svc;
       cursor.classList.toggle("is-big", !!big);
-      if (big) blobLabel.textContent = e.target.closest(".tg-card") ? "Написать" : e.target.closest(".works__scroller") ? "Смотреть" : "Открыть";
+      if (big) blobLabel.textContent = e.target.closest(".tg-card") ? "Написать" : e.target.closest(".works__scroller, .vfwin") ? "Смотреть" : "Открыть";
       if (svc) {
         previewBg.className = "fire-bg " + (svc.dataset.preview || "");
         if (!preview.classList.contains("is-on")) { px = tx; py = ty; }
@@ -436,7 +480,12 @@
   // Hero scroll-out
   gsap.to(".hero__media", { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   gsap.to(".hero__content", { yPercent: -18, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "center center", end: "bottom top", scrub: true } });
-  gsap.to(".case-card", { yPercent: -60, rotate: 6, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".hero__aside", { yPercent: -35, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  if (canHover) {
+    const ax = gsap.quickTo(".hero__aside", "x", { duration: .9, ease: "power3.out" });
+    const ay = gsap.quickTo(".hero__aside", "y", { duration: .9, ease: "power3.out" });
+    $(".hero").addEventListener("mousemove", e => { ax((e.clientX / innerWidth - .5) * -18); ay((e.clientY / innerHeight - .5) * -12); });
+  }
 
   // Ticker reacts to scroll velocity: speeds up and skews
   const anims = tickers.map(t => t.getAnimations()[0]).filter(Boolean);
