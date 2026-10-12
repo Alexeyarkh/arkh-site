@@ -27,11 +27,11 @@ window.SITE = {
   // Работы. category: ads | reels | motion | brand
   // ratio: "vertical" (9:16, рилсы) или "wide" (16:9)
   WORKS: [
-    { title: "Запуск нового вкуса", client: "Напиток", category: "ads",    ratio: "wide",     poster: "", video: "", task: "Ролик для запуска линейки в федеральной сети.", result: "2,4 млн просмотров за неделю" },
-    { title: "Серия рилс для бренда одежды", client: "Fashion", category: "reels",  ratio: "vertical", poster: "", video: "", task: "12 вертикальных роликов под сезонную коллекцию.", result: "+38% к охвату аккаунта" },
-    { title: "Motion-айдентика", client: "Tech-стартап", category: "motion", ratio: "wide",     poster: "", video: "", task: "Анимированный логотип и графика для презентации.", result: "Пакет из 20 анимаций" },
-    { title: "Имиджевый фильм", client: "Автодилер", category: "brand",  ratio: "wide",     poster: "", video: "", task: "Фильм о бренде для сайта и выставки.", result: "Главный ролик на 3 площадках" },
-    { title: "Reels для ресторана", client: "HoReCa", category: "reels",  ratio: "vertical", poster: "", video: "", task: "Аппетитный контент на месяц за 1 съёмочный день.", result: "Бронирования +22%" },
+    { title: "Запуск нового вкуса", client: "Напиток", category: "ads",    ratio: "wide",     poster: "", video: "", task: "Кампания для запуска линейки в федеральной сети.", result: "2,4 млн просмотров за неделю" },
+    { title: "Вертикальная серия для бренда одежды", client: "Fashion", category: "reels",  ratio: "vertical", poster: "", video: "", task: "12 вертикальных видео под сезонную коллекцию.", result: "+38% к охвату аккаунта" },
+    { title: "Моушн-айдентика", client: "Tech-стартап", category: "motion", ratio: "wide",     poster: "", video: "", task: "Анимированный логотип и графика для презентации.", result: "Пакет из 20 анимаций" },
+    { title: "Имиджевый фильм", client: "Автодилер", category: "brand",  ratio: "wide",     poster: "", video: "", task: "Фильм о бренде для сайта и выставки.", result: "Главное видео на 3 площадках" },
+    { title: "Вертикальный контент для ресторана", client: "HoReCa", category: "reels",  ratio: "vertical", poster: "", video: "", task: "Аппетитный контент на месяц за 1 съёмочный день.", result: "Бронирования +22%" },
     { title: "Реклама для маркетплейса", client: "E-com", category: "ads",    ratio: "vertical", poster: "", video: "", task: "Видео-обложки карточек товаров.", result: "CTR карточек ×1,7" },
   ],
 

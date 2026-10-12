@@ -12,7 +12,7 @@
   const animated = root.classList.contains("anim");
   const intro = root.classList.contains("intro");
 
-  const CATS = { ads: "Реклама", reels: "Рилсы", motion: "Motion", brand: "Имиджевый" };
+  const CATS = { ads: "Реклама", reels: "Вертикальный контент", motion: "Моушн-дизайн", brand: "Имиджевый" };
 
   /* ---------- Config → DOM ---------- */
   const brand = S.BRAND_NAME || "arkh";
