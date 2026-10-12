@@ -426,7 +426,7 @@
   const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay: intro ? 2.2 : .1 });
   tl.from(".hero__media", { scale: 1.25, duration: 2.2, ease: "expo.out" })
     .from(".vf__c", { scale: 2.2, opacity: 0, duration: 1.2, stagger: .05 }, 0)
-    .from(".vf__meta, .vf__cross", { opacity: 0, duration: .8, stagger: .08 }, .4)
+    .from(".vf__meta", { opacity: 0, duration: .8, stagger: .08 }, .4)
     .to(".hero .line > span", { y: 0, duration: 1.3, stagger: .1 }, .15)
     .to(".stroke path", { strokeDashoffset: 0, duration: 1.4, ease: "power3.inOut" }, .9)
     .to(".hero .reveal", { opacity: 1, y: 0, duration: 1.1, stagger: .1 }, .6)
