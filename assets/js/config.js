@@ -25,17 +25,19 @@ window.SITE = {
   // Работы. category: ads | reels | motion | brand
   // ratio: "vertical" (9:16, рилсы) или "wide" (16:9)
   WORKS: [
-    { title: "Касание", client: "Domino's Pizza", category: "ads", ratio: "wide", poster: "assets/img/works/dominos.jpg", video: "assets/video/works/dominos.mp4", task: "Динамичный ролик в стиле улицы: баскетбол, дрифт, граффити — заказ в одно касание.", result: "" },
+    // Порядок на сайте = порядок здесь: горизонтальные и вертикальные чередуются, первой всегда идёт горизонтальная.
     { title: "PRO Опыты", client: "Детские наборы · Ozon", category: "ads", ratio: "wide", poster: "assets/img/works/pro-opyty.jpg", video: "assets/video/works/pro-opyty.mp4", task: "Реклама наборов для опытов для маркетплейса — со сказочным 3D-миром.", result: "" },
+    { title: "Анонс мероприятия", client: "Анатолий Сульянов", category: "reels", ratio: "vertical", poster: "assets/img/works/sulyanov.jpg", video: "assets/video/works/sulyanov.mp4", task: "Вертикальный анонс события с героем-спикером.", result: "" },
     { title: "Мистер Шкафф", client: "Мебельная компания", category: "brand", ratio: "wide", poster: "assets/img/works/mr-shkaff.jpg", video: "assets/video/works/mr-shkaff.mp4", task: "Имиджевый фильм: основатель, производство и 3D-визуализация продукта.", result: "" },
     { title: "Запиши на пятницу", client: "VK Бизнес", category: "reels", ratio: "vertical", poster: "assets/img/works/vk-biznes.jpg", video: "assets/video/works/vk-biznes.mp4", task: "Вертикальный ролик о сервисе онлайн-записи для малого бизнеса.", result: "" },
-    { title: "OldBoy Family", client: "Барбершоп OldBoy", category: "brand", ratio: "wide", poster: "assets/img/works/oldboy.jpg", video: "assets/video/works/oldboy.mp4", task: "Фильм об атмосфере барбершопа и его команде.", result: "" },
-    { title: "Оранж Мебель", client: "Мебельная компания", category: "ads", ratio: "wide", poster: "assets/img/works/orange-mebel.jpg", video: "assets/video/works/orange-mebel.mp4", task: "Рекламный ролик с основателем: производство и подход к клиентам.", result: "" },
-    { title: "Мебель на заказ", client: "Loft Point", category: "reels", ratio: "vertical", poster: "assets/img/works/loft-point.jpg", video: "assets/video/works/loft-point.mp4", task: "Вертикальная реклама мебели на заказ с субтитрами под соцсети.", result: "" },
-    { title: "Озонатор", client: "Товар для дома", category: "ads", ratio: "wide", poster: "assets/img/works/ozonator.jpg", video: "assets/video/works/ozonator.mp4", task: "Рекламный ролик товара с моушн-плашками о свойствах.", result: "" },
-    { title: "Простор", client: "VK", category: "reels", ratio: "vertical", poster: "assets/img/works/vk-prostor.jpg", video: "assets/video/works/vk-prostor.mp4", task: "Промо-ролик сообщества «Простор» во ВКонтакте.", result: "" },
     { title: "Каркасные дома", client: "Строительная компания", category: "brand", ratio: "wide", poster: "assets/img/works/doma.jpg", video: "assets/video/works/doma.mp4", task: "Фильм о строительстве дома — от разметки до аэросъёмки готового объекта.", result: "" },
-    { title: "Анонс мероприятия", client: "Анатолий Сульянов", category: "reels", ratio: "vertical", poster: "assets/img/works/sulyanov.jpg", video: "assets/video/works/sulyanov.mp4", task: "Вертикальный анонс события с героем-спикером.", result: "" },
+    { title: "Мебель на заказ", client: "Loft Point", category: "reels", ratio: "vertical", poster: "assets/img/works/loft-point.jpg", video: "assets/video/works/loft-point.mp4", task: "Вертикальная реклама мебели на заказ с субтитрами под соцсети.", result: "" },
+    { title: "Оранж Мебель", client: "Мебельная компания", category: "ads", ratio: "wide", poster: "assets/img/works/orange-mebel.jpg", video: "assets/video/works/orange-mebel.mp4", task: "Рекламный ролик с основателем: производство и подход к клиентам.", result: "" },
+    { title: "Простор", client: "VK", category: "reels", ratio: "vertical", poster: "assets/img/works/vk-prostor.jpg", video: "assets/video/works/vk-prostor.mp4", task: "Промо-ролик сообщества «Простор» во ВКонтакте.", result: "" },
+    { title: "OldBoy Family", client: "Барбершоп OldBoy", category: "brand", ratio: "wide", poster: "assets/img/works/oldboy.jpg", video: "assets/video/works/oldboy.mp4", task: "Фильм об атмосфере барбершопа и его команде.", result: "" },
+    { title: "Зимнее промо", client: "T2", category: "reels", ratio: "vertical", poster: "assets/img/works/t2.jpg", video: "assets/video/works/t2.mp4", task: "Вертикальный промо-ролик с 3D-графикой: гигантский стакан посреди зимнего города.", result: "" },
+    { title: "Касание", client: "Domino's Pizza", category: "ads", ratio: "wide", poster: "assets/img/works/dominos.jpg", video: "assets/video/works/dominos.mp4", task: "Динамичный ролик в стиле улицы: баскетбол, дрифт, граффити — заказ в одно касание.", result: "" },
+    { title: "Озонатор", client: "Товар для дома", category: "ads", ratio: "wide", poster: "assets/img/works/ozonator.jpg", video: "assets/video/works/ozonator.mp4", task: "Рекламный ролик товара с моушн-плашками о свойствах.", result: "" },
   ],
 
   // Логотипы клиентов («Нам доверяют»). Лучше SVG или PNG на прозрачном фоне —
