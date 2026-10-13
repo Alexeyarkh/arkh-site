@@ -532,6 +532,25 @@
     skewTo(Math.max(-12, Math.min(12, -v * .6)));
   });
 
+  // Seamless crossfades: the page background dissolves between dark and paper
+  root.classList.add("morph");
+  const BLACK = "#0a0a0a", PAPER = "#ecebe6";
+  const scenes = [
+    [".ticker", BLACK], ["#about", PAPER], ["#services", BLACK], [".clients", BLACK],
+    [".why__banner", BLACK], [".why__body", PAPER], ["#works", BLACK], ["#backstage", PAPER], ["#contact", BLACK],
+  ];
+  gsap.set(document.body, { backgroundColor: BLACK });
+  scenes.reduce((prev, [sel, color]) => {
+    const el = $(sel);
+    if (el && color !== prev) {
+      gsap.fromTo(document.body, { backgroundColor: prev }, {
+        backgroundColor: color, ease: "power2.inOut", immediateRender: false,
+        scrollTrigger: { trigger: el, start: "top 80%", end: "top 40%", scrub: .4 },
+      });
+    }
+    return el ? color : prev;
+  }, BLACK);
+
   // Generic reveals
   $$(".reveal").forEach(el => {
     if (el.closest(".hero")) return;

@@ -815,6 +815,21 @@ ol, ul { padding: 0; list-style: none; }
 .footer__up { color: var(--fire); }
 .footer__copy { color: rgba(255,255,255,.5); font-size: 12px; }
 
+/* ---------- Seamless crossfades between sections ----------
+   JS adds .morph when GSAP runs: sections become transparent and the page
+   background itself dissolves between black and paper while scrolling. */
+.morph .section, .morph .light, .morph .ticker, .morph .clients, .morph .why, .morph .contact { background: transparent; }
+.morph .why__banner { background: transparent; }
+.morph .why__streaks, .morph .why__banner::after {
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+}
+.morph .contact__media {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 28%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 28%);
+}
+.morph .contact__shade { background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,.35) 30%, rgba(10,10,10,.6) 70%, var(--black) 100%); }
+
 /* ---------- Modal ---------- */
 .modal { position: fixed; inset: 0; z-index: var(--z-modal); display: grid; place-items: center; padding: var(--gutter); visibility: hidden; pointer-events: none; }
 .modal.is-open { visibility: visible; pointer-events: auto; }
