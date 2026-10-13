@@ -155,6 +155,11 @@
     grid.appendChild(el);
   });
 
+  // hide filters that have no works yet
+  $$(".chip").forEach(chip => {
+    const f = chip.dataset.filter;
+    if (f !== "all" && !works.some(w => w.category === f)) chip.hidden = true;
+  });
   $$(".chip").forEach(chip => chip.addEventListener("click", () => {
     $$(".chip").forEach(c => { c.classList.toggle("is-active", c === chip); c.setAttribute("aria-pressed", c === chip); });
     const f = chip.dataset.filter;
