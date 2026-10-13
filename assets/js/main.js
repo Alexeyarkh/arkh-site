@@ -32,9 +32,10 @@
 
   /* ---------- Hero media: muted b/w backdrop + full-colour viewfinder window ---------- */
   (() => {
-    const hero = $(".hero"), small = matchMedia("(max-width: 720px)").matches;
-    const src = (small && S.HERO_VIDEO_MOBILE) || S.HERO_VIDEO;
-    const poster = (small && S.HERO_POSTER_MOBILE) || S.HERO_POSTER || S.HERO_IMAGE;
+    const hero = $(".hero");
+    // one horizontal reel everywhere: the window is 16:9 on every screen, the backdrop just crops it
+    const src = S.HERO_VIDEO;
+    const poster = S.HERO_POSTER || S.HERO_IMAGE;
     const saveData = navigator.connection && navigator.connection.saveData;
     const bgPoster = $(".hero__poster"), winPoster = $(".vfwin__poster");
     const useMedia = () => { hero.classList.add("has-media"); $(".hero .fire-scene").style.display = "none"; $(".vfwin__ph").hidden = true; };
