@@ -86,11 +86,18 @@
   })();
 
   // Contact background showreel (lazy)
-  if (S.SHOWREEL_VIDEO) {
+  if (S.SHOWREEL_VIDEO && !reduced) {
     const v = $(".contact__video");
-    new IntersectionObserver((entries, io) => {
-      if (entries[0].isIntersecting) { v.src = S.SHOWREEL_VIDEO; v.hidden = false; v.play().catch(() => {}); io.disconnect(); }
-    }, { rootMargin: "300px" }).observe(v);
+    let loaded = false;
+    v.autoplay = true;
+    v.addEventListener("canplay", () => v.play().catch(() => {}), { once: true });
+    // the <video> is hidden until loaded, so watch the section; pause when it scrolls away
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        if (!loaded) { loaded = true; v.src = S.SHOWREEL_VIDEO; v.hidden = false; }
+        v.play().catch(() => {});
+      } else if (loaded) v.pause();
+    }, { rootMargin: "300px" }).observe($(".contact"));
   }
 
   /* ---------- Intro slate countdown ---------- */
