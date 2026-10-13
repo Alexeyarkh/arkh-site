@@ -13,7 +13,7 @@ window.SITE = {
   HERO_VIDEO: "assets/video/hero.mp4",          // горизонтальная нарезка — и для ПК, и для телефона (сжимать: MAXW=1280 tools/compress-video.sh …)
   HERO_POSTER: "assets/img/hero.jpg",         // стоп-кадр, пока видео грузится, напр. "assets/img/hero.jpg"
   HERO_IMAGE: "",          // устаревшее: используется как стоп-кадр, если HERO_POSTER пуст
-  SHOWREEL_VIDEO: "assets/video/showreel.mp4",      // напр. "assets/video/showreel.mp4" — фон финального экрана и плеер «Смотреть шоурил»
+  SHOWREEL_VIDEO: "assets/video/showreel.mp4",      // плеер по кнопке «Шоурил» и по клику на окно-кадр
 
   SOCIALS: [
     { name: "Telegram", url: "https://t.me/alexey_arkh" },
