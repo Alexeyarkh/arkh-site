@@ -435,7 +435,9 @@
   if (canHover) {
     root.classList.add("has-cursor");
     let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy, seen = false;
-    const preview = $(".svc-preview"), previewBg = $(".fire-bg", preview);
+    const preview = $(".svc-preview"), previewImg = $("img", preview);
+    // warm the cache so the first hover shows the frame at once
+    $$(".svc__item").forEach(li => { if (li.dataset.preview) new Image().src = li.dataset.preview; });
     let px = cx, py = cy;
     cursor.style.opacity = "0";
     addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; if (!seen) { seen = true; cx = tx; cy = ty; cursor.style.opacity = "1"; } });
@@ -468,10 +470,11 @@
       cursor.classList.toggle("is-big", !!big);
       if (big) blobLabel.textContent = e.target.closest(".tg-card") ? "Написать" : e.target.closest(".works__scroller, .vfwin") ? "Смотреть" : "Открыть";
       if (svc) {
-        previewBg.className = "fire-bg " + (svc.dataset.preview || "");
+        const want = svc.dataset.preview || "";
+        if (want && previewImg.getAttribute("src") !== want) previewImg.src = want;
         if (!preview.classList.contains("is-on")) { px = tx; py = ty; }
         preview.classList.add("is-on");
-      } else preview.classList.remove("is-on");
+      } else if (preview.classList.contains("is-on")) { preview.classList.remove("is-on"); }
     });
     const magnet = (el, f) => {
       el.addEventListener("mousemove", e => {
@@ -494,7 +497,8 @@
     hero.addEventListener("mousemove", e => hero.style.setProperty("--mx", `${(1 - e.clientX / innerWidth) * 100}%`));
   }
   $$(".svc__item").forEach(li => {
-    const go = () => window.open(S.TELEGRAM_URL || "#", "_blank", "noopener");
+    const link = $("a", li);
+    const go = () => { if (link) location.href = link.href; };
     li.addEventListener("click", go);
     li.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
   });
