@@ -58,12 +58,20 @@ window.SITE = {
   // Пусто — остаётся текущий фон. Пример: "assets/img/about-1.jpg" или "assets/video/about-2.mp4"
   ABOUT_MEDIA: ["assets/video/about/1.mp4", "assets/video/about/2.mp4", "assets/video/about/3.mp4", "assets/video/about/4.mp4"],
 
-  // Фото со съёмок (бэкстейдж). Добавляйте пути к файлам.
+  // Фото со съёмок (бэкстейдж). wide: true — горизонтальное фото.
   BACKSTAGE: [
-    { src: "", caption: "Свет и камера на площадке" },
-    { src: "", caption: "Работа с актёрами" },
-    { src: "", caption: "Съёмка продукта" },
-    { src: "", caption: "Режиссёрский монитор" },
-    { src: "", caption: "Цветокоррекция" },
+    { src: "assets/img/backstage/01.jpg", caption: "Режиссёрский монитор" },
+    { src: "assets/img/backstage/02.jpg", caption: "Выставляем свет", wide: true },
+    { src: "assets/img/backstage/03.jpg", caption: "Работа с актёрами" },
+    { src: "assets/img/backstage/04.jpg", caption: "Съёмка PRO Опыты", wide: true },
+    { src: "assets/img/backstage/05.jpg", caption: "Режиссёр на площадке" },
+    { src: "assets/img/backstage/06.jpg", caption: "Камера и оптика", wide: true },
+    { src: "assets/img/backstage/07.jpg", caption: "Съёмка на гимбал" },
+    { src: "assets/img/backstage/08.jpg", caption: "Дым и контровой свет", wide: true },
+    { src: "assets/img/backstage/09.jpg", caption: "Сверяем раскадровку" },
+    { src: "assets/img/backstage/10.jpg", caption: "Интервью с героем" },
+    { src: "assets/img/backstage/11.jpg", caption: "Свет на производстве" },
+    { src: "assets/img/backstage/12.jpg", caption: "Тележка и проводка камеры" },
+    { src: "assets/img/backstage/13.jpg", caption: "Через объектив" },
   ],
 };

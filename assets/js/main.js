@@ -334,11 +334,12 @@
   const mid = Math.floor(shots.length / 2);
   shots.forEach((s, i) => {
     const f = document.createElement("figure");
-    f.className = "shot" + (i === mid ? " shot--big" : "");
+    const big = i === mid && !s.src; // the logo tile is only for the placeholder strip
+    f.className = "shot" + (big ? " shot--big" : "") + (s.wide ? " shot--wide" : "");
     f.style.margin = "0";
     const variants = ["fire-bg--mono", "", "fire-bg--car"];
     f.innerHTML = (s.src ? `<img src="${s.src}" alt="${s.caption || ""}" loading="lazy">` : `<div class="fire-bg ${variants[i % 3]}"></div>`) +
-      (i === mid ? `<img class="shot__logo" src="assets/img/logo-white.png" alt="">` : "") +
+      (big ? `<img class="shot__logo" src="assets/img/logo-white.png" alt="">` : "") +
       `<figcaption>${s.caption || ""}</figcaption>`;
     strip.appendChild(f);
   });
