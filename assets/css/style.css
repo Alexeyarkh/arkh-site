@@ -501,9 +501,11 @@ ol, ul { padding: 0; list-style: none; }
   color: var(--white); background: var(--black-2);
   transition: transform var(--t-slow) var(--ease-out);
 }
-.card:hover { transform: translateY(-6px); }
 .card__bg { position: absolute; inset: 0; transition: transform 1.2s var(--ease-out); }
-.card:hover .card__bg { transform: scale(1.06); }
+@media (hover: hover) {
+  .card:hover { transform: translateY(-6px); }
+  .card:hover .card__bg { transform: scale(1.06); }
+}
 .card > :not(.card__bg) { position: relative; }
 .card .tag { color: inherit; }
 .card__body { display: grid; gap: 12px; max-width: 460px; }
@@ -525,6 +527,10 @@ ol, ul { padding: 0; list-style: none; }
   transition: opacity var(--t-med);
 }
 .bento .card > :not(.card__bg) { z-index: 2; }
+.bento .card > .card__n {
+  position: absolute; top: clamp(22px, 2.4vw, 34px); right: clamp(22px, 2.4vw, 34px);
+  font-size: clamp(20px, 1.7vw, 28px); line-height: 1; letter-spacing: -.02em;
+}
 .bento .card { box-shadow: 0 0 0 1px transparent; transition: transform var(--t-slow) var(--ease-out), box-shadow var(--t-med); }
 @media (hover: hover) {
   .bento .card:hover { box-shadow: 0 0 0 1px rgba(255,74,28,.7), 0 30px 70px -25px rgba(255,74,28,.55); }
@@ -544,7 +550,7 @@ ol, ul { padding: 0; list-style: none; }
 .clients { background: var(--black); color: var(--white); padding: clamp(56px, 7vw, 100px) 0; border-top: 1px solid rgba(255,255,255,.08); }
 .clients__title { color: rgba(255,255,255,.55); margin-bottom: clamp(24px, 3vw, 40px); text-align: center; }
 .clients__row {
-  overflow: hidden;
+  overflow: hidden; padding: 44px 0; margin: -44px 0;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
@@ -558,9 +564,8 @@ ol, ul { padding: 0; list-style: none; }
   max-height: 44px; max-width: 170px; width: auto; height: auto; object-fit: contain;
   filter: brightness(0) invert(1); opacity: .55; transition: filter var(--t-med), opacity var(--t-med), transform var(--t-med) var(--ease-out);
 }
-.client:hover { background: rgba(255,255,255,.04); box-shadow: 0 0 0 1px rgba(255,74,28,.5), 0 0 40px -6px rgba(255,74,28,.55); }
-.client:hover img { opacity: 1; transform: scale(1.06); }
-.client--color:hover img { filter: none; }
+.client:hover { background: #f4f2ee; box-shadow: 0 0 0 1px rgba(255,74,28,.6), 0 0 40px -6px rgba(255,74,28,.55); }
+.client:hover img { filter: none; opacity: 1; transform: scale(1.06); }
 .client--ph {
   width: 170px; border: 1px dashed rgba(255,255,255,.22); color: rgba(255,255,255,.35);
   font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
@@ -977,8 +982,9 @@ ol, ul { padding: 0; list-style: none; }
   /* phone: tiles and USP cards become swipeable rows instead of a long stack */
   .bento, .usp {
     display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding: 4px var(--gutter) 18px;
+    margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding: 4px var(--gutter) 36px; margin-bottom: -18px;
     scroll-padding-left: var(--gutter);
+    overflow-y: hidden; overscroll-behavior-x: contain; touch-action: pan-x pan-y;
   }
   .bento::-webkit-scrollbar, .usp::-webkit-scrollbar { display: none; }
   .bento .card { flex: 0 0 84%; min-height: 380px; grid-area: auto !important; scroll-snap-align: start; }
@@ -1002,8 +1008,8 @@ ol, ul { padding: 0; list-style: none; }
   .process__step h3 { font-size: 24px; }
   .process__step p { font-size: 16px; }
   /* phone: lift the hero copy above Safari's floating bottom bar */
-  .hero__content { padding-bottom: calc(132px + env(safe-area-inset-bottom)); }
-  .vf { bottom: calc(96px + env(safe-area-inset-bottom)); }
+  .hero__content { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .vf { bottom: calc(48px + env(safe-area-inset-bottom)); }
   /* phone: banner is a composed block, not an empty picture */
   .why__banner { min-height: 0; padding: 120px 0 110px; }
   .morph .why__streaks, .morph .why__banner::after { -webkit-mask-image: none; mask-image: none; }

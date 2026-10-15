@@ -39,18 +39,17 @@ window.SITE = {
   ],
 
   // Логотипы клиентов («Нам доверяют»). Лучше SVG или PNG на прозрачном фоне —
-  // на сайте они показываются белыми; color: true — при наведении в родных цветах
-  // (только для логотипов без чёрного, иначе на тёмном фоне их не видно).
+  // на сайте они показываются белыми, а при наведении — в родных цветах на светлой плашке.
   // Пример: { name: "Бренд", logo: "assets/img/clients/brand.svg" }
   CLIENTS: [
-    { name: "Domino's Pizza", logo: "assets/img/clients/dominos.png", color: true },
+    { name: "Domino's Pizza", logo: "assets/img/clients/dominos.png" },
     { name: "T2", logo: "assets/img/clients/t2.png" },
     { name: "VK Бизнес", logo: "assets/img/clients/vk-biznes.png" },
     { name: "Фабрика мебели Serebryakov", logo: "assets/img/clients/serebryakov.png" },
     { name: "Letique Cosmetics", logo: "assets/img/clients/letique.png" },
     { name: "Avest", logo: "assets/img/clients/avest.png" },
     { name: "OldBoy Barbershop", logo: "assets/img/clients/oldboy.png" },
-    { name: "Оранж Мебель", logo: "assets/img/clients/orange-mebel.png", color: true },
+    { name: "Оранж Мебель", logo: "assets/img/clients/orange-mebel.png" },
     { name: "Мистер Ант", logo: "assets/img/clients/mister-ant.png" },
   ],
 

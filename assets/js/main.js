@@ -175,7 +175,7 @@
   if (clientsTrack) {
     const list = (S.CLIENTS || []).filter(c => c.logo);
     const items = list.length
-      ? list.map(c => `<span class="client${c.color ? " client--color" : ""}" title="${c.name || ""}"><img src="${c.logo}" alt="${c.name || ""}" loading="lazy"></span>`)
+      ? list.map(c => `<span class="client" title="${c.name || ""}"><img src="${c.logo}" alt="${c.name || ""}" loading="lazy"></span>`)
       : Array.from({ length: 8 }, () => `<span class="client client--ph" aria-hidden="true">логотип</span>`);
     const set = items.join("");
     clientsTrack.innerHTML = set + set; // two copies for a seamless loop
