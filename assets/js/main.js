@@ -33,8 +33,8 @@
   /* ---------- Hero media: muted b/w backdrop + full-colour viewfinder window ---------- */
   (() => {
     const hero = $(".hero");
-    // one horizontal reel everywhere: the window is 16:9 on every screen, the backdrop just crops it
-    const src = S.HERO_VIDEO;
+    // one horizontal reel everywhere (16:9 window); phones get a lighter encode of the same cut
+    const src = (matchMedia("(max-width: 720px)").matches && S.HERO_VIDEO_MOBILE) || S.HERO_VIDEO;
     const poster = S.HERO_POSTER || S.HERO_IMAGE;
     const saveData = navigator.connection && navigator.connection.saveData;
     const bgPoster = $(".hero__poster"), winPoster = $(".vfwin__poster");
@@ -118,8 +118,9 @@
   /* ---------- Works ---------- */
   const grid = $("#worksGrid");
   const works = S.WORKS || [];
-  const mediaHTML = (w, cls = "") => {
-    if (w.video) return `<video class="${cls}" src="${w.video}" ${w.poster ? `poster="${w.poster}"` : ""} muted playsinline loop preload="none"></video>`;
+  const mediaHTML = (w, cls = "", lazy = false) => {
+    // lazy: the poster is set only when the card approaches the screen (see posterIO below)
+    if (w.video) return `<video class="${cls}" src="${w.video}" ${w.poster ? `${lazy ? "data-poster" : "poster"}="${w.poster}"` : ""} muted playsinline loop preload="none"></video>`;
     if (w.poster) return `<img class="${cls}" src="${w.poster}" alt="" loading="lazy">`;
     const variants = ["", "fire-bg--mono", "fire-bg--car"];
     return `<div class="fire-bg ${variants[(w._i || 0) % 3]} ${cls}" style="position:absolute;inset:0"></div>`;
@@ -134,7 +135,7 @@
     el.setAttribute("aria-label", `Открыть работу «${w.title}»`);
     el.tabIndex = 0;
     el.innerHTML = `
-      <div class="work__media">${mediaHTML(w)}</div>
+      <div class="work__media">${mediaHTML(w, "", true)}</div>
       <span class="tag mono">${CATS[w.category] || ""}</span>
       <span class="work__idx mono">${String(i + 1).padStart(2, "0")} / ${String(works.length).padStart(2, "0")}</span>
       <span class="work__play"></span>
@@ -148,6 +149,11 @@
     el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(w, el); } });
     grid.appendChild(el);
   });
+  const posterIO = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const v = e.target; v.poster = v.dataset.poster; v.removeAttribute("data-poster"); posterIO.unobserve(v);
+  }), { rootMargin: "400px 900px" });
+  $$("video[data-poster]", grid).forEach(v => posterIO.observe(v));
 
   // hide filters that have no works yet
   $$(".chip").forEach(chip => {
@@ -486,7 +492,11 @@
     hero.classList.add("is-following");
     hero.addEventListener("mousemove", e => hero.style.setProperty("--mx", `${(1 - e.clientX / innerWidth) * 100}%`));
   }
-  $$(".svc__item").forEach(li => li.addEventListener("click", () => window.open(S.TELEGRAM_URL || "#", "_blank", "noopener")));
+  $$(".svc__item").forEach(li => {
+    const go = () => window.open(S.TELEGRAM_URL || "#", "_blank", "noopener");
+    li.addEventListener("click", go);
+    li.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
 
   /* ---------- No signal overlay ---------- */
   const signal = $("#signal");

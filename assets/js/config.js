@@ -11,6 +11,7 @@ window.SITE = {
   // Видео-подложки. Пока пусто — показываются огненные градиенты.
   // Первый экран: нарезка бэкстейджа. Фон — она же, приглушённая ч/б, справа — окно-кадр в цвете.
   HERO_VIDEO: "assets/video/hero.mp4",          // горизонтальная нарезка — и для ПК, и для телефона (сжимать: MAXW=1280 tools/compress-video.sh …)
+  HERO_VIDEO_MOBILE: "assets/video/hero-mobile.mp4", // облегчённая версия для телефонов (854 px, ~2 МБ)
   HERO_POSTER: "assets/img/hero.jpg",         // стоп-кадр, пока видео грузится, напр. "assets/img/hero.jpg"
   HERO_IMAGE: "",          // устаревшее: используется как стоп-кадр, если HERO_POSTER пуст
   SHOWREEL_VIDEO: "assets/video/showreel.mp4",      // плеер по кнопке «Шоурил» и по клику на окно-кадр
