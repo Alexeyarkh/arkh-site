@@ -722,11 +722,12 @@ ol, ul { padding: 0; list-style: none; }
 
 /* ---------- Backstage ---------- */
 .backstage { padding: clamp(96px, 13vw, 200px) 0; overflow: hidden; }
-.strip { display: flex; gap: 14px; margin: clamp(56px, 7vw, 100px) 0; width: max-content; animation: marquee 190s linear infinite; }
+.strip { display: flex; gap: 14px; margin: clamp(56px, 7vw, 100px) 0; width: max-content; animation: marquee 180s linear infinite; }
 .strip:hover { animation-play-state: paused; }
 .shot { position: relative; flex: none; height: clamp(240px, 30vw, 440px); aspect-ratio: 4 / 5; border-radius: var(--radius-sm); overflow: hidden; background: var(--black-2); }
 .shot--big { aspect-ratio: 16 / 10; }
 .shot--wide { aspect-ratio: 3 / 2; }
+.shot--square { aspect-ratio: 1; }
 .shot img:not(.shot__logo), .shot .fire-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .shot__logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 34%; height: auto; }
 .shot figcaption { position: absolute; left: 14px; bottom: 14px; padding: 7px 13px; border-radius: 999px; background: rgba(0,0,0,.5); backdrop-filter: blur(6px); color: var(--white); font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }

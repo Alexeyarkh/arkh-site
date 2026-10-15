@@ -22,10 +22,11 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ProfessionalService", "@id": "https://arkhfilm.ru/#org", "name": "arkh", "alternateName": "arkh production", "description": "Видеопродакшн полного цикла: рекламные кампании, вертикальный контент и имиджевые фильмы для брендов.", "url": "https://arkhfilm.ru/", "logo": "https://arkhfilm.ru/assets/img/icon-512.png", "image": "https://arkhfilm.ru/assets/img/og.jpg", "areaServed": ["Москва", "Тверь", "Санкт-Петербург"], "address": {"@type": "PostalAddress", "addressLocality": "Москва", "addressCountry": "RU"}, "sameAs": ["https://t.me/alexey_arkh"], "knowsAbout": ["Рекламные ролики", "Вертикальный контент", "Имиджевые фильмы", "Видеопродакшн"]}, {"@type": "WebSite", "@id": "https://arkhfilm.ru/#site", "url": "https://arkhfilm.ru/", "name": "arkh — видеопродакшн", "inLanguage": "ru", "publisher": {"@id": "https://arkhfilm.ru/#org"}}, {"@type": "VideoObject", "name": "Шоурил arkh", "description": "Лучшие моменты наших съёмок: реклама, вертикальный контент, имиджевые фильмы.", "thumbnailUrl": "https://arkhfilm.ru/assets/img/showreel.jpg", "contentUrl": "https://arkhfilm.ru/assets/video/showreel.mp4", "uploadDate": "2026-10-13", "duration": "PT1M", "publisher": {"@id": "https://arkhfilm.ru/#org"}}]}</script>
   <meta name="theme-color" content="#0a0a0a">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/img/hero.jpg" as="image" fetchpriority="high">
   <link rel="preload" href="assets/fonts/Unbounded-cyrillic-cb504d.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/InterTight-cyrillic-837888.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=1">
-  <link rel="stylesheet" href="assets/css/style.css?v=35">
+  <link rel="stylesheet" href="assets/css/style.css?v=36">
   <script>
     (function () {
       var d = document.documentElement;
@@ -81,9 +82,9 @@
 <main id="main">
 
 <!-- ================= HERO ================= -->
-<section class="hero">
+<section class="hero has-media">
   <div class="hero__media">
-    <div class="fire-scene">
+    <div class="fire-scene" hidden>
       <span class="fs fs--1"></span><span class="fs fs--2"></span><span class="fs fs--3"></span>
       <span class="fs fs--4"></span><span class="fs fs--5"></span>
       <svg class="fire-scene__silhouette" viewBox="0 0 600 720" aria-hidden="true">
@@ -108,7 +109,7 @@
       </svg>
     </div>
     <canvas class="hero__bg" hidden></canvas>
-    <img class="hero__poster" alt="" hidden>
+    <img class="hero__poster" src="assets/img/hero.jpg" alt="" fetchpriority="high">
     <div class="hero__vignette"></div>
   </div>
 
@@ -144,8 +145,8 @@
     <span class="vfwin-stack" aria-hidden="true"><i class="fire-bg fire-bg--mono"></i><i class="fire-bg"></i></span>
     <button class="vfwin reveal js-showreel" type="button" aria-label="Смотреть шоурил" data-cursor>
       <span class="vfwin__media">
-        <span class="fire-bg fire-bg--car vfwin__ph"></span>
-        <img class="vfwin__poster" alt="" hidden>
+        <span class="fire-bg fire-bg--car vfwin__ph" hidden></span>
+        <img class="vfwin__poster" src="assets/img/hero.jpg" alt="">
         <video class="vfwin__video" muted playsinline loop preload="none" hidden></video>
       </span>
       <span class="vfwin__flash" aria-hidden="true"></span>
@@ -413,11 +414,11 @@
   </div>
 </div>
 
-<script src="assets/js/config.js?v=28" defer></script>
+<script src="assets/js/config.js?v=29" defer></script>
 <script src="assets/vendor/qrcode.min.js" defer></script>
 <script src="assets/vendor/gsap.min.js" defer></script>
 <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/js/main.js?v=35" defer></script>
+<script src="assets/js/main.js?v=36" defer></script>
 </body>
 </html>
