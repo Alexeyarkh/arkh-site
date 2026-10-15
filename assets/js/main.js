@@ -309,6 +309,7 @@
     $(".modal__title", modal).textContent = w.title;
     $(".modal__task", modal).textContent = w.task || "";
     $(".modal__result", modal).textContent = w.result || "";
+    $(".modal__more", modal).href = w.page || "#";
     const mv = $("video", player);
     if (mv) mv.volume = .3; // open quieter — the reels are mixed loud
     modal.classList.add("is-open"); modal.setAttribute("aria-hidden", "false");

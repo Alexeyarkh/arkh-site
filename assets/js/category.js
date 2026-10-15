@@ -1,5 +1,5 @@
-/* Service pages (reklama / vertikalnyj-kontent / imidzhevye-filmy):
-   all works of one category from config.js + the same player as on the main page. */
+/* Service and project pages: the cards are in the HTML (for search engines),
+   this adds hover previews, the player modal and the Telegram links. */
 (() => {
   const S = window.SITE || {};
   const $ = (s, c = document) => c.querySelector(s);
@@ -8,35 +8,26 @@
 
   $$(".js-tg").forEach(a => { a.href = S.TELEGRAM_URL || "#"; a.target = "_blank"; a.rel = "noopener"; });
   $$(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
+  // project page player: open quieter — the reels are mixed loud
+  $$(".case__player video").forEach(v => (v.volume = .3));
 
-  const cat = document.body.dataset.cat;
-  const works = (S.WORKS || []).filter(w => w.category === cat);
-  const grid = $("#catGrid");
-  $$(".js-count").forEach(el => (el.textContent = works.length));
-
-  works.forEach((w, i) => {
-    const el = document.createElement("article");
-    el.className = `work ${w.ratio === "vertical" ? "work--vertical" : ""}`;
-    el.setAttribute("role", "button");
-    el.setAttribute("aria-label", `Смотреть «${w.title}»`);
-    el.tabIndex = 0;
-    el.innerHTML = `
-      <div class="work__media"><video src="${w.video}" poster="${w.poster || ""}" muted playsinline loop preload="none"></video></div>
-      <span class="work__idx mono">${String(i + 1).padStart(2, "0")} / ${String(works.length).padStart(2, "0")}</span>
-      <span class="work__play"></span>
-      <div class="work__info"><small>${w.client || ""}</small><h3>${w.title}</h3></div>`;
+  const modal = $("#modal");
+  const works = S.WORKS || [];
+  $$(".svc-grid .work").forEach(el => {
+    const w = works.find(x => x.page === el.dataset.page);
+    if (!w || !modal) return;
     const vid = $("video", el);
     if (canHover) {
       el.addEventListener("mouseenter", () => { vid.preload = "auto"; vid.play().catch(() => {}); });
       el.addEventListener("mouseleave", () => vid.pause());
     }
-    el.addEventListener("click", () => openModal(w, el));
+    el.addEventListener("click", e => { if (!e.target.closest("a")) { e.preventDefault(); openModal(w, el); } });
     el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(w, el); } });
-    grid.appendChild(el);
   });
+  if (!modal) return;
 
   /* ---------- Player ---------- */
-  const modal = $("#modal"), player = $(".modal__player", modal);
+  const player = $(".modal__player", modal);
   let lastFocus = null;
   function openModal(w, trigger) {
     lastFocus = trigger;
@@ -45,7 +36,8 @@
     $(".modal__cat", modal).textContent = w.client || "";
     $(".modal__title", modal).textContent = w.title;
     $(".modal__task", modal).textContent = w.task || "";
-    $("video", player).volume = .3; // the reels are mixed loud
+    $(".modal__more", modal).href = w.page || "#";
+    $("video", player).volume = .3;
     modal.classList.add("is-open"); modal.setAttribute("aria-hidden", "false");
     document.documentElement.style.overflow = "hidden";
     setTimeout(() => $(".modal__close", modal).focus(), 50);

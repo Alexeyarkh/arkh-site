@@ -1074,3 +1074,27 @@ ol, ul { padding: 0; list-style: none; }
   .svc-grid--vertical .work__info { left: 12px; right: 12px; bottom: 12px; }
   .svc-grid--vertical .work__idx { display: none; }
 }
+.contact__mail { display: inline-block; margin-top: 14px; font-size: 13px; letter-spacing: .06em; color: rgba(255,255,255,.6); transition: color var(--t-fast); }
+.contact__mail:hover, .footer__mail:hover { color: var(--fire); }
+.footer__mail { color: inherit; }
+
+/* ---------- Project pages ---------- */
+.work__info h3 a { color: inherit; }
+.modal__more { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); transition: color var(--t-fast); }
+.modal__more:hover { color: var(--fire); }
+.modal__more[href="#"] { display: none; }
+.case__title { margin-top: 22px; max-width: 1100px; font-family: var(--f-display); font-weight: 800; font-size: clamp(30px, 4.6vw, 72px); line-height: 1; letter-spacing: -.04em; }
+.case { margin-top: clamp(36px, 5vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: clamp(24px, 3vw, 48px); align-items: start; }
+.case__player { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: #000; }
+.case__player--vertical { aspect-ratio: 9 / 16; width: min(100%, 460px); justify-self: center; }
+.case__player video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.case__info { display: grid; gap: 14px; justify-items: start; }
+.case__h { font-family: var(--f-display); font-weight: 700; font-size: 20px; letter-spacing: -.02em; }
+.case__h:not(:first-child) { margin-top: 12px; }
+.case__h--more { margin: clamp(20px, 3vw, 40px) 0 20px; font-size: clamp(24px, 2.6vw, 38px); }
+.case__text { font-size: 17px; line-height: 1.55; color: rgba(255,255,255,.78); }
+.case__result { font-family: var(--f-display); font-weight: 600; color: var(--fire); font-size: 18px; }
+.case__list { display: grid; gap: 8px; margin-bottom: 10px; }
+.case__list li { position: relative; padding-left: 22px; color: rgba(255,255,255,.75); }
+.case__list li::before { content: ""; position: absolute; left: 0; top: .62em; width: 10px; height: 2px; background: var(--fire); }
+@media (max-width: 960px) { .case { grid-template-columns: 1fr; } }
