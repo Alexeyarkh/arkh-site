@@ -100,11 +100,11 @@
     const t0 = performance.now();
     let last = -1;
     const tick = now => {
-      const f = Math.floor((now - t0) / (1000 / 24));
+      const f = Math.floor((now - t0) / (1000 / 25));
       if (f !== last) {
         last = f;
-        const s = Math.floor(f / 24);
-        tc.textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}:${pad(f % 24)}`;
+        const s = Math.floor(f / 25);
+        tc.textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}:${pad(f % 25)}`;
       }
       if (!reduced) requestAnimationFrame(tick);
     };
@@ -310,7 +310,7 @@
     $(".modal__task", modal).textContent = w.task || "";
     $(".modal__result", modal).textContent = w.result || "";
     const mv = $("video", player);
-    if (mv) mv.volume = .5; // open at half volume — the reels are mixed loud
+    if (mv) mv.volume = .3; // open quieter — the reels are mixed loud
     modal.classList.add("is-open"); modal.setAttribute("aria-hidden", "false");
     lenis && lenis.stop();
     setTimeout(() => $(".modal__close", modal).focus(), 50);

@@ -537,6 +537,8 @@ ol, ul { padding: 0; list-style: none; }
 .card__media video, .card__media img { filter: saturate(1.05) contrast(1.05); }
 .card--media, .card--media.card--line { color: var(--white); border-color: transparent; }
 .card--media.card--line .card__n { -webkit-text-stroke-color: var(--white); }
+.card--media .card__n { color: var(--fire); -webkit-text-stroke: 0; opacity: 1; }
+.bento .card--media::before { display: none; } /* no orange wash over footage — the frame glow is enough */
 
 /* ---------- Clients ---------- */
 .clients { background: var(--black); color: var(--white); padding: clamp(56px, 7vw, 100px) 0; border-top: 1px solid rgba(255,255,255,.08); }

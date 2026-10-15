@@ -177,8 +177,8 @@
       var tc = document.getElementById("tc"), t0 = performance.now();
       var pad = function (n) { return String(n).padStart(2, "0"); };
       (function tick(now) {
-        var f = Math.floor((now - t0) / (1000 / 24)), s = Math.floor(f / 24);
-        tc.textContent = "00:" + pad(Math.floor(s / 60) % 60) + ":" + pad(s % 60) + ":" + pad(f % 24);
+        var f = Math.floor((now - t0) / (1000 / 25)), s = Math.floor(f / 25);
+        tc.textContent = "00:" + pad(Math.floor(s / 60) % 60) + ":" + pad(s % 60) + ":" + pad(f % 25);
         requestAnimationFrame(tick);
       })(t0);
 
