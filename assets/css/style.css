@@ -559,7 +559,8 @@ ol, ul { padding: 0; list-style: none; }
   filter: brightness(0) invert(1); opacity: .55; transition: filter var(--t-med), opacity var(--t-med), transform var(--t-med) var(--ease-out);
 }
 .client:hover { background: rgba(255,255,255,.04); box-shadow: 0 0 0 1px rgba(255,74,28,.5), 0 0 40px -6px rgba(255,74,28,.55); }
-.client:hover img { filter: none; opacity: 1; transform: scale(1.06); }
+.client:hover img { opacity: 1; transform: scale(1.06); }
+.client--color:hover img { filter: none; }
 .client--ph {
   width: 170px; border: 1px dashed rgba(255,255,255,.22); color: rgba(255,255,255,.35);
   font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;

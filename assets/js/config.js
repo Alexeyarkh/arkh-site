@@ -26,7 +26,7 @@ window.SITE = {
     // Порядок на сайте = порядок здесь: горизонтальные и вертикальные чередуются, первой всегда идёт горизонтальная.
     { title: "PRO Опыты", client: "Детские наборы · Ozon", category: "ads", ratio: "wide", poster: "assets/img/works/pro-opyty.jpg?v=2", video: "assets/video/works/pro-opyty.mp4", task: "Реклама наборов опытов для маркетплейса со сказочным 3D-миром.", result: "" },
     { title: "Анонс мероприятия", client: "Анатолий Сульянов", category: "reels", ratio: "vertical", poster: "assets/img/works/sulyanov.jpg?v=2", video: "assets/video/works/sulyanov.mp4", task: "Вертикальный анонс события с героем-спикером.", result: "" },
-    { title: "Мистер Шкафф", client: "Мебельная компания", category: "brand", ratio: "wide", poster: "assets/img/works/mr-shkaff.jpg?v=2", video: "assets/video/works/mr-shkaff.mp4", task: "Имиджевый фильм с основателем на производстве и 3D-визуализацией продукта.", result: "" },
+    { title: "Serebryakov", client: "Фабрика мебели", category: "brand", ratio: "wide", poster: "assets/img/works/mr-shkaff.jpg?v=2", video: "assets/video/works/mr-shkaff.mp4", task: "Имиджевый фильм с основателем на производстве и 3D-визуализацией продукта.", result: "" },
     { title: "Рекламный ролик для VK Бизнес", client: "VK Бизнес", category: "reels", ratio: "vertical", poster: "assets/img/works/vk-biznes.jpg?v=2", video: "assets/video/works/vk-biznes.mp4", task: "Вертикальный ролик о сервисе онлайн-записи для малого бизнеса.", result: "" },
     { title: "Каркасные дома", client: "Строительная компания", category: "brand", ratio: "wide", poster: "assets/img/works/doma.jpg?v=2", video: "assets/video/works/doma.mp4", task: "Фильм о строительстве дома — от разметки до аэросъёмки готового объекта.", result: "" },
     { title: "Мебель на заказ", client: "Loft Point", category: "reels", ratio: "vertical", poster: "assets/img/works/loft-point.jpg?v=2", video: "assets/video/works/loft-point.mp4", task: "Вертикальная реклама мебели на заказ с субтитрами под соцсети.", result: "" },
@@ -39,9 +39,20 @@ window.SITE = {
   ],
 
   // Логотипы клиентов («Нам доверяют»). Лучше SVG или PNG на прозрачном фоне —
-  // на сайте они показываются белыми, а при наведении в родных цветах.
+  // на сайте они показываются белыми; color: true — при наведении в родных цветах
+  // (только для логотипов без чёрного, иначе на тёмном фоне их не видно).
   // Пример: { name: "Бренд", logo: "assets/img/clients/brand.svg" }
-  CLIENTS: [],
+  CLIENTS: [
+    { name: "Domino's Pizza", logo: "assets/img/clients/dominos.png", color: true },
+    { name: "T2", logo: "assets/img/clients/t2.png" },
+    { name: "VK Бизнес", logo: "assets/img/clients/vk-biznes.png" },
+    { name: "Фабрика мебели Serebryakov", logo: "assets/img/clients/serebryakov.png" },
+    { name: "Letique Cosmetics", logo: "assets/img/clients/letique.png" },
+    { name: "Avest", logo: "assets/img/clients/avest.png" },
+    { name: "OldBoy Barbershop", logo: "assets/img/clients/oldboy.png" },
+    { name: "Оранж Мебель", logo: "assets/img/clients/orange-mebel.png", color: true },
+    { name: "Мистер Ант", logo: "assets/img/clients/mister-ant.png" },
+  ],
 
   // Фото или видео для плиток «О студии» (Стратегия, Продакшн, Скорость, Команда).
   // Пусто — остаётся текущий фон. Пример: "assets/img/about-1.jpg" или "assets/video/about-2.mp4"
