@@ -448,7 +448,7 @@ ol, ul { padding: 0; list-style: none; }
 @keyframes scrollLine { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
 /* ---------- Ticker ---------- */
-.ticker { position: relative; background: var(--black); color: var(--white); padding: clamp(36px, 5vw, 72px) 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
+.ticker { position: relative; background: var(--black); color: var(--white); padding: clamp(36px, 5vw, 72px) 0; overflow: visible; overflow-x: clip; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
 .ticker__row { overflow: hidden; }
 .ticker__track {
   display: flex; align-items: center; gap: .45em; width: max-content; will-change: transform;
@@ -529,7 +529,8 @@ ol, ul { padding: 0; list-style: none; }
 .bento .card:hover { box-shadow: 0 0 0 1px rgba(255,74,28,.7), 0 30px 70px -25px rgba(255,74,28,.55); }
 .bento .card:hover::before { opacity: 1; }
 .card__media img, .card__media video { width: 100%; height: 100%; object-fit: cover; }
-.card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.25) 40%, rgba(0,0,0,.78) 100%); }
+.card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.45) 35%, rgba(0,0,0,.82) 70%, rgba(0,0,0,.9) 100%); }
+.card__media video, .card__media img { filter: saturate(1.05) contrast(1.05); }
 .card--media, .card--media.card--line { color: var(--white); border-color: transparent; }
 .card--media.card--line .card__n { -webkit-text-stroke-color: var(--white); }
 
@@ -624,7 +625,8 @@ ol, ul { padding: 0; list-style: none; }
 .usp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: clamp(64px, 8vw, 120px); }
 .usp__item {
   position: relative; overflow: hidden; isolation: isolate; display: grid; gap: 14px; align-content: start;
-  min-height: 260px; padding: clamp(24px, 2.4vw, 36px); border-radius: var(--radius); border: 1px solid var(--line);
+  min-height: 260px; padding: clamp(24px, 2.4vw, 36px); border-radius: var(--radius);
+  background: #f7f6f2; border: 1px solid rgba(10,10,10,.08); box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 18px 40px -28px rgba(10,10,10,.35);
   transition: background var(--t-med) var(--ease), color var(--t-med) var(--ease), border-color var(--t-med), transform var(--t-slow) var(--ease-out);
 }
 .usp__item::before {
@@ -641,7 +643,7 @@ ol, ul { padding: 0; list-style: none; }
 }
 .usp__item:hover .usp__n { color: var(--fire); }
 .usp__item h3 { font-family: var(--f-display); font-weight: 600; font-size: clamp(21px, 1.8vw, 28px); letter-spacing: -.03em; line-height: 1.1; margin-top: auto; }
-.usp__item p { color: var(--muted); font-size: 17px; line-height: 1.45; max-width: 400px; transition: color var(--t-med); }
+.usp__item p { color: #55554f; font-size: 17px; line-height: 1.45; max-width: 400px; transition: color var(--t-med); }
 .usp__item:hover p { color: rgba(255,255,255,.75); }
 
 /* ---------- Works (horizontal reel) ---------- */
@@ -818,7 +820,13 @@ ol, ul { padding: 0; list-style: none; }
 /* ---------- Seamless crossfades between sections ----------
    JS adds .morph when GSAP runs: sections become transparent and the page
    background itself dissolves between black and paper while scrolling. */
-.morph .section, .morph .light, .morph .ticker, .morph .clients, .morph .why, .morph .contact { background: transparent; }
+.morph .section, .morph .light, .morph .clients, .morph .why, .morph .contact { background: transparent; }
+/* the ticker keeps its black ground (white type must never sit on paper) and feathers into the next block */
+.ticker { z-index: 2; }
+.ticker::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 100%; height: clamp(60px, 9vw, 140px); pointer-events: none;
+  background: linear-gradient(180deg, var(--black), rgba(10,10,10,0));
+}
 .morph .why__banner { background: transparent; }
 .morph .why__streaks, .morph .why__banner::after {
   -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
@@ -947,8 +955,17 @@ ol, ul { padding: 0; list-style: none; }
   .vfwin__play { left: 10px; bottom: 10px; height: 24px; padding: 0 9px; font-size: 9px; gap: 6px; }
   .fire-scene__silhouette { width: 110vw; left: 58%; top: 18%; opacity: .9; }
   .fs--1, .fs--2 { left: 14%; width: 76%; top: 44%; }
-  .bento { grid-template-columns: 1fr; grid-template-areas: "a" "b" "c" "d"; }
-  .card { min-height: 260px; }
+  /* phone: tiles and USP cards become swipeable rows instead of a long stack */
+  .bento, .usp {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding: 4px var(--gutter) 18px;
+    scroll-padding-left: var(--gutter);
+  }
+  .bento::-webkit-scrollbar, .usp::-webkit-scrollbar { display: none; }
+  .bento .card { flex: 0 0 84%; min-height: 380px; grid-area: auto !important; scroll-snap-align: start; }
+  .usp__item { flex: 0 0 80%; min-height: 250px; scroll-snap-align: start; }
+  .why__banner { min-height: 62vh; }
+  .why__banner-sub { font-size: 17px; padding: 0 8px; }
   .usp { grid-template-columns: 1fr; }
   .svc__item { grid-template-columns: minmax(0, 1fr) 44px; gap: 10px 16px; }
   .svc__num { grid-column: 1; grid-row: 1; }

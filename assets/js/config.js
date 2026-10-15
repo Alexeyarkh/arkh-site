@@ -47,7 +47,7 @@ window.SITE = {
 
   // Фото или видео для плиток «О студии» (Стратегия, Продакшн, Скорость, Команда).
   // Пусто — остаётся текущий фон. Пример: "assets/img/about-1.jpg" или "assets/video/about-2.mp4"
-  ABOUT_MEDIA: ["", "", "", ""],
+  ABOUT_MEDIA: ["assets/video/about/1.mp4", "assets/video/about/2.mp4", "assets/video/about/3.mp4", "assets/video/about/4.mp4"],
 
   // Фото со съёмок (бэкстейдж). Добавляйте пути к файлам.
   BACKSTAGE: [

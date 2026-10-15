@@ -184,7 +184,7 @@
     const bg = document.createElement("div");
     bg.className = "card__bg card__media";
     bg.innerHTML = isVideo
-      ? `<video src="${src}" muted playsinline loop preload="none"></video>`
+      ? `<video src="${src}" poster="${src.replace(/\.(mp4|webm|mov)$/i, ".jpg")}" muted playsinline loop preload="none"></video>`
       : `<img src="${src}" alt="" loading="lazy">`;
     $$(".card__bg", card).forEach(el => el.remove());
     card.prepend(bg);
@@ -303,6 +303,8 @@
     $(".modal__title", modal).textContent = w.title;
     $(".modal__task", modal).textContent = w.task || "";
     $(".modal__result", modal).textContent = w.result || "";
+    const mv = $("video", player);
+    if (mv) mv.volume = .5; // open at half volume — the reels are mixed loud
     modal.classList.add("is-open"); modal.setAttribute("aria-hidden", "false");
     lenis && lenis.stop();
     setTimeout(() => $(".modal__close", modal).focus(), 50);
@@ -544,16 +546,23 @@
     if (el && color !== prev) {
       gsap.fromTo(document.body, { backgroundColor: prev }, {
         backgroundColor: color, ease: "power2.inOut", immediateRender: false,
-        scrollTrigger: { trigger: el, start: "top 80%", end: "top 40%", scrub: .4 },
+        scrollTrigger: { trigger: el, start: "top 85%", end: "top 55%", scrub: .4 },
       });
     }
     return el ? color : prev;
   }, BLACK);
 
+  // Section labels appear only once the page background has switched under them
+  $$(".section-label").forEach(el => {
+    if (el.closest(".hero, .contact")) return;
+    gsap.from(el, { opacity: 0, y: 16, duration: .8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 72%" } });
+  });
+
   // Generic reveals
   $$(".reveal").forEach(el => {
     if (el.closest(".hero")) return;
-    gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } });
+    const late = el.matches(".h2"); // big section titles wait for the background switch
+    gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: late ? "top 72%" : "top 90%" } });
   });
 
   // Line-masked titles
