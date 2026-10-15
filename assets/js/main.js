@@ -337,6 +337,19 @@
     strip.appendChild(f);
   });
 
+  // backstage: duplicate the shots so the strip can loop on its own
+  if (strip && strip.children.length) strip.innerHTML += strip.innerHTML;
+
+  /* ---------- Touch carousels: light up the card you are looking at ---------- */
+  if (!canHover && matchMedia("(max-width: 720px)").matches) {
+    $$(".bento, .usp").forEach(row => {
+      const cards = [...row.children];
+      const io = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle("is-active", e.intersectionRatio > .6)),
+        { root: row, threshold: [0, .6, 1] });
+      cards.forEach(c => io.observe(c));
+    });
+  }
+
   /* ---------- Manifest word split ---------- */
   $$(".js-words").forEach(p => {
     [...p.childNodes].forEach(n => {
@@ -546,7 +559,7 @@
     if (el && color !== prev) {
       gsap.fromTo(document.body, { backgroundColor: prev }, {
         backgroundColor: color, ease: "power2.inOut", immediateRender: false,
-        scrollTrigger: { trigger: el, start: "top 85%", end: "top 55%", scrub: .4 },
+        scrollTrigger: { trigger: el, start: "top 62%", end: "top 42%", scrub: .4 },
       });
     }
     return el ? color : prev;
@@ -555,14 +568,14 @@
   // Section labels appear only once the page background has switched under them
   $$(".section-label").forEach(el => {
     if (el.closest(".hero, .contact")) return;
-    gsap.from(el, { opacity: 0, y: 16, duration: .8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 72%" } });
+    gsap.from(el, { opacity: 0, y: 16, duration: .8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 56%" } });
   });
 
   // Generic reveals
   $$(".reveal").forEach(el => {
     if (el.closest(".hero")) return;
     const late = el.matches(".h2"); // big section titles wait for the background switch
-    gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: late ? "top 72%" : "top 90%" } });
+    gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: late ? "top 56%" : "top 90%" } });
   });
 
   // Line-masked titles
@@ -592,11 +605,6 @@
 
   gsap.from(".works__grid", { x: 160, opacity: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".works__scroller", start: "top 85%" } });
 
-  // Backstage strip drift
-  gsap.fromTo(strip, { x: () => innerWidth * .1 }, {
-    x: () => -(strip.scrollWidth - innerWidth) - innerWidth * .05, ease: "none",
-    scrollTrigger: { trigger: strip, start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true },
-  });
 
   // Process line fill
   gsap.to(".process__line", { scaleX: 1, ease: "none", scrollTrigger: { trigger: ".process", start: "top 85%", end: "bottom 60%", scrub: true } });
