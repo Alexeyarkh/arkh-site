@@ -14,7 +14,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-V = {"css": 39, "config": 31, "js": 2}  # поднимайте при правках, чтобы браузеры не брали старое
+V = {"css": 41, "config": 31, "js": 2}  # поднимайте при правках, чтобы браузеры не брали старое
 SITE = "https://arkhfilm.ru"
 EMAIL = "arkhfilm@gmail.com"
 CITIES = ("Тверь", "Москва", "Санкт-Петербург")
@@ -157,9 +157,21 @@ HEAD = """<!doctype html>
 
 TAIL = """
 <footer class="footer container">
-  <p>Москва — Тверь — Санкт-Петербург · <a class="footer__mail" href="mailto:{email}">{email}</a></p>
-  <div class="footer__links">
-    <a href="reklama.html">Рекламные кампании</a><a href="vertikalnyj-kontent.html">Вертикальный контент</a><a href="imidzhevye-filmy.html">Имиджевые фильмы</a>
+  <div class="footer__grid">
+    <div class="footer__col footer__col--contacts">
+      <span class="footer__h mono">Контакты</span>
+      <a href="#" class="js-tg">Telegram</a>
+      <a href="mailto:{email}">{email}</a>
+      <p>Москва — Тверь — Санкт-Петербург</p>
+    </div>
+    <div class="footer__col">
+      <span class="footer__h mono">Разделы</span>
+      <a href="./">Главная</a><a href="./#about">О нас</a><a href="./#works">Работы</a><a href="./#backstage">Бэкстейдж</a>
+    </div>
+    <div class="footer__col">
+      <span class="footer__h mono">Услуги</span>
+      <a href="reklama.html">Рекламные кампании</a><a href="vertikalnyj-kontent.html">Вертикальный контент</a><a href="imidzhevye-filmy.html">Имиджевые фильмы</a>
+    </div>
   </div>
   <div class="footer__end">
     <small class="footer__copy mono">© <span class="js-year">2026</span> arkh production</small>

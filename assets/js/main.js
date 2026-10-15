@@ -345,8 +345,32 @@
     strip.appendChild(f);
   });
 
-  // backstage: duplicate the shots so the strip can loop on its own
-  if (strip && strip.children.length) strip.innerHTML += strip.innerHTML;
+  // backstage: on phones the strip is swiped by hand; elsewhere it loops on its own (needs a second copy)
+  const swipePhone = !canHover && matchMedia("(max-width: 720px)").matches;
+  if (strip && swipePhone) strip.classList.add("is-swipe");
+  else if (strip && strip.children.length) strip.innerHTML += strip.innerHTML;
+
+  /* ---------- Phone swipe rows: a progress line shows there is more to the right ---------- */
+  if (swipePhone) {
+    [$(".bento"), $(".usp"), strip].forEach(row => {
+      if (!row) return;
+      const bar = document.createElement("div");
+      bar.className = "swipe-bar" + (row === strip ? " swipe-bar--strip" : "");
+      bar.setAttribute("aria-hidden", "true");
+      bar.innerHTML = "<span></span>";
+      row.after(bar);
+      const thumb = bar.firstChild;
+      const update = () => {
+        const max = row.scrollWidth - row.clientWidth;
+        const w = Math.max(.12, row.clientWidth / row.scrollWidth);
+        thumb.style.width = w * 100 + "%";
+        thumb.style.left = (max > 0 ? row.scrollLeft / max : 0) * (1 - w) * 100 + "%";
+      };
+      row.addEventListener("scroll", update, { passive: true });
+      addEventListener("resize", update);
+      update();
+    });
+  }
 
   /* ---------- Touch carousels: light up the card you are looking at ---------- */
   if (!canHover && matchMedia("(max-width: 720px)").matches) {
