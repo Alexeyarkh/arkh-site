@@ -830,6 +830,8 @@ ol, ul { padding: 0; list-style: none; }
 .footer__links a:hover { background-size: 100% 1px; color: var(--fire); }
 .footer__end { display: flex; align-items: center; gap: 24px; }
 .footer__up { color: var(--fire); }
+.footer__privacy { color: rgba(255,255,255,.6); text-decoration: none; transition: color var(--t-fast); }
+.footer__privacy:hover { color: var(--white); }
 .footer__copy { color: rgba(255,255,255,.5); font-size: 12px; }
 
 /* ---------- Seamless crossfades between sections ----------
