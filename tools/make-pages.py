@@ -120,7 +120,7 @@ HEAD = """<!doctype html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <script>if(location.protocol==="http:"&&/arkhfilm\\.ru$/.test(location.hostname))location.replace("https://arkhfilm.ru"+location.pathname+location.search+location.hash)</script>
+  <script>if((location.protocol==="http:"||location.hostname.indexOf("www.")===0)&&/arkhfilm\\.ru$/.test(location.hostname))location.replace("https://arkhfilm.ru"+location.pathname+location.search+location.hash)</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{title}</title>
   <meta name="description" content="{desc}">
