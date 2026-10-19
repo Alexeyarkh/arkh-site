@@ -27,13 +27,36 @@ jobs:
         if: env.FTP_SERVER != ''
 
       - name: Загрузка по FTP (только изменённые файлы)
+        id: ftp1
         if: env.FTP_SERVER != ''
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
+          timeout: 120000
+          server-dir: ${{ secrets.FTP_DIR || 'www/arkhfilm.ru/' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .claude/**
+            tools/**
+            logo/**
+            CNAME
+            **/.DS_Store
+
+      - name: Повторная попытка, если сервер не ответил
+        if: env.FTP_SERVER != '' && steps.ftp1.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          timeout: 120000
           server-dir: ${{ secrets.FTP_DIR || 'www/arkhfilm.ru/' }}
           exclude: |
             **/.git*
