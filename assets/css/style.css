@@ -969,7 +969,7 @@ ol, ul { padding: 0; list-style: none; }
   .hero__actions { width: 100%; }
   .hero__actions .btn { flex: 1; }
   .hero__scroll { display: none; }
-  .hero__aside { right: 24px; top: calc(var(--header-h) + 76px); width: min(52vw, 230px); }
+  .hero__aside { right: 24px; top: calc(var(--header-h) + 64px); width: min(46vw, 200px); }
   .why__banner-title { line-height: 1.1; }
   .why__banner-title .line:nth-child(2) > span { -webkit-text-stroke-width: 1.5px; }
   .vfwin { border-radius: 12px; }
@@ -1129,4 +1129,13 @@ ol, ul { padding: 0; list-style: none; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .footer__col--contacts { grid-column: 1 / -1; }
   .footer__col--contacts a:first-of-type { font-family: var(--f-display); font-weight: 600; font-size: 20px; }
+}
+
+/* short phones (Safari bars shown): smaller showreel window, copy sits lower so they never overlap */
+@media (max-width: 720px) and (max-height: 760px) {
+  .hero__aside { top: calc(var(--header-h) + 50px); width: min(40vw, 170px); }
+  .hero__content { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 720px) and (max-height: 640px) {
+  .hero__aside { width: min(34vw, 140px); }
 }

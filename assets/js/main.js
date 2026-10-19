@@ -8,6 +8,20 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasGsap = !!window.gsap;
   const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  // iPhone shows an empty (black) frame when a <video loop> wraps around.
+  // Restart a hair before the end instead, so the last frame stays on screen during the jump.
+  const seamlessLoop = v => {
+    if (!v || v.dataset.seamless) return;
+    v.dataset.seamless = "1";
+    v.loop = false; v.removeAttribute("loop");
+    const restart = () => { v.currentTime = 0.05; v.play().catch(() => {}); };
+    const near = () => v.duration && v.duration - v.currentTime < 0.3;
+    if ("requestVideoFrameCallback" in v) {
+      const tick = () => { if (near() && !v.seeking) restart(); v.requestVideoFrameCallback(tick); };
+      v.requestVideoFrameCallback(tick);
+    } else v.addEventListener("timeupdate", () => { if (near() && !v.seeking) restart(); });
+    v.addEventListener("ended", restart);
+  };
   if (reduced || !hasGsap) root.classList.remove("anim", "intro");
   const animated = root.classList.contains("anim");
   const intro = root.classList.contains("intro");
@@ -49,9 +63,10 @@
     let prev = null, lastFlash = 0, visible = true, started = false, motion = 8;
     video.src = src; if (poster) video.poster = poster;
     video.preload = "auto"; video.hidden = false;
+    seamlessLoop(video);
 
     const draw = () => {
-      if (!visible || video.paused) return;
+      if (!visible || video.paused || video.seeking || video.readyState < 2) return;
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       // detect cuts: big jump in a 32x18 luminance map → light-leak flash on the window
       pctx.drawImage(video, 0, 0, 32, 18);
@@ -141,6 +156,7 @@
       <span class="work__play"></span>
       <div class="work__info"><small>${w.client || ""}</small><h3>${w.title}</h3></div>`;
     const vid = $("video", el);
+    seamlessLoop(vid);
     if (vid) {
       el.addEventListener("mouseenter", () => { vid.preload = "auto"; vid.play().catch(() => {}); });
       el.addEventListener("mouseleave", () => vid.pause());
@@ -196,6 +212,7 @@
     card.prepend(bg);
     card.classList.add("card--media");
     const v = $("video", bg);
+    if (v) { seamlessLoop(v); bg.style.background = `#151515 url(${v.getAttribute("poster")}) center / cover`; }
     if (v && !reduced) new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()), { rootMargin: "100px" }).observe(card);
   });
 
