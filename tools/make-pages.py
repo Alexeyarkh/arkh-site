@@ -14,7 +14,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-V = {"css": 42, "config": 31, "js": 2}  # поднимайте при правках, чтобы браузеры не брали старое
+V = {"css": 43, "config": 31, "js": 2}  # поднимайте при правках, чтобы браузеры не брали старое
 SITE = "https://arkhfilm.ru"
 EMAIL = "arkhfilm@gmail.com"
 CITIES = ("Тверь", "Москва", "Санкт-Петербург")
